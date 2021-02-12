@@ -30,7 +30,7 @@
 
 1. go to application.yml 
 
-2. fill detail about
+2. input detail about
 - neo4j : username, password, uri
 - mongoDB : uri
 - redis : host, port
