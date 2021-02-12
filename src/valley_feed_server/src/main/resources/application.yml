@@ -1,0 +1,38 @@
+server:
+  port: 8030
+
+spring:
+  neo4j:
+    authentication:
+      username: # input neo4j username
+      password: # input neo4j password
+    uri: # input neo4j uri
+  rabbitmq:
+    host: # input rabbitmq host
+    port: 5672
+    username: # input rabbitmq username
+    password: # input rabbitmq password
+  data:
+    mongodb:
+      uri: # input mongodb uri
+  redis:
+    host: # input redis host
+    port: 6379
+  servlet:
+    multipart:
+      max-file-size: 26240KB
+      max-request-size: 26240KB
+
+cloud:
+  aws:
+    s3:
+      bucket: # input s3 bucket
+    region:
+      static: # input s3 region
+    stack:
+      auto: false
+    credentials:
+      instance-profile: true
+      accessKey: # input s3 accessKey
+      secretKey: # input s3 secretKey
+

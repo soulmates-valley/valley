@@ -1,0 +1,14 @@
+server:
+  port: 8040
+
+spring:
+  neo4j:
+    authentication:
+      username: # input neo4j username
+      password: # input neo4j password
+    uri: # input neo4j uri
+  rabbitmq:
+    host: # input rabbitmq host
+    port: 5672
+    username: # input rabbitmq username
+    password: # input rabbitmq password
