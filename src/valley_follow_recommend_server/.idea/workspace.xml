@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="144583df-0002-4adb-9825-62386c100796" name="Default Changelist" comment="fix: like 쿼리문 수정">
+      <change afterPath="$PROJECT_DIR$/modules/decodeJwt.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes/followrecmnd.js" beforeDir="false" afterPath="$PROJECT_DIR$/routes/followrecmnd.js" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1nyPESHqDanlDKfuAxVZz0RHeSg" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="vue.rearranger.settings.migration" value="true" />
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="144583df-0002-4adb-9825-62386c100796" name="Default Changelist" comment="" />
+      <created>1612359245992</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1612359245992</updated>
+      <workItem from="1612359247112" duration="387000" />
+      <workItem from="1612359813629" duration="12350000" />
+      <workItem from="1612399059612" duration="9661000" />
+      <workItem from="1612452381427" duration="1000" />
+      <workItem from="1612456212258" duration="1494000" />
+      <workItem from="1612457938139" duration="1154000" />
+      <workItem from="1612484800643" duration="1061000" />
+      <workItem from="1612492165201" duration="2788000" />
+      <workItem from="1612536201535" duration="495000" />
+      <workItem from="1612670205315" duration="882000" />
+      <workItem from="1612693355308" duration="1120000" />
+    </task>
+    <task id="LOCAL-00001" summary="feat: 알 수도 있는 친구 구현중">
+      <created>1612359275839</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1612359275839</updated>
+    </task>
+    <task id="LOCAL-00002" summary="feat: 알 수도 있는 친구 구현중..2">
+      <created>1612359956535</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1612359956535</updated>
+    </task>
+    <task id="LOCAL-00003" summary="feat: 알 수도 있는 친구 구현중..2">
+      <created>1612360019409</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1612360019409</updated>
+    </task>
+    <task id="LOCAL-00004" summary="feat: 알 수도 있는 친구 구현중..3">
+      <created>1612361056235</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1612361056235</updated>
+    </task>
+    <task id="LOCAL-00005" summary="feat: 알 수도 있는 친구 구현중..4">
+      <created>1612361653501</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1612361653501</updated>
+    </task>
+    <task id="LOCAL-00006" summary="feat: 알 수도 있는 친구 구현중..Session naming error">
+      <created>1612361806361</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1612361806361</updated>
+    </task>
+    <task id="LOCAL-00007" summary="feat: 알 수도 있는 친구 구현중..Session graphname 임시로받기">
+      <created>1612361927993</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1612361927993</updated>
+    </task>
+    <task id="LOCAL-00008" summary="feat: 알 수도 있는 친구 구현중..Session graphname 임시로받기">
+      <created>1612362111740</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1612362111740</updated>
+    </task>
+    <task id="LOCAL-00009" summary="feat: 알 수도 있는 친구 구현중..Session graphname 임시로받기">
+      <created>1612362264106</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1612362264106</updated>
+    </task>
+    <task id="LOCAL-00010" summary="feat: 알 수도 있는 친구 구현중..Session graphname 임시로받기">
+      <created>1612362350719</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1612362350719</updated>
+    </task>
+    <task id="LOCAL-00011" summary="feat: 알 수도 있는 친구 구현중..Session graphname 임시로받기2">
+      <created>1612362743676</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1612362743676</updated>
+    </task>
+    <task id="LOCAL-00012" summary="feat: 알 수도 있는 친구 구현중..Session graphname 임시로받기2">
+      <created>1612363401084</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1612363401084</updated>
+    </task>
+    <task id="LOCAL-00013" summary="feat: 알 수도 있는 친구 구현중..Session graphname 임시로받기2">
+      <created>1612363576580</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1612363576580</updated>
+    </task>
+    <task id="LOCAL-00014" summary="feat: 알 수도있는 친구 &amp; 좋아할만한 친구 추천 기능">
+      <created>1612371040297</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1612371040297</updated>
+    </task>
+    <task id="LOCAL-00015" summary="fix: 필요한 데이터를 리턴 하는 것으로수정">
+      <created>1612371650584</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1612371650584</updated>
+    </task>
+    <task id="LOCAL-00016" summary="fix: 추천 모델 개선 (1)-최신 7일기간 접속자 가산점 부여">
+      <created>1612425252321</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1612425252321</updated>
+    </task>
+    <task id="LOCAL-00017" summary="fix: 결괏값리턴 문제 해결">
+      <created>1612426060813</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1612426060813</updated>
+    </task>
+    <task id="LOCAL-00018" summary="fix: 결괏값리턴 문제 해결">
+      <created>1612426965450</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1612426965451</updated>
+    </task>
+    <task id="LOCAL-00019" summary="feat: 추천 기능완료">
+      <created>1612426992893</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1612426992893</updated>
+    </task>
+    <task id="LOCAL-00020" summary="fix: 변수명 수정">
+      <created>1612427111496</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1612427111496</updated>
+    </task>
+    <task id="LOCAL-00021" summary="fix: 변수명 수정">
+      <created>1612427703055</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1612427703055</updated>
+    </task>
+    <task id="LOCAL-00022" summary="fix: rename error 수정">
+      <created>1612427780266</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1612427780266</updated>
+    </task>
+    <task id="LOCAL-00023" summary="fix: return data수정">
+      <created>1612428058792</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1612428058792</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fix: 데이터가 없을 때 응답값 수정">
+      <created>1612428430311</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1612428430311</updated>
+    </task>
+    <task id="LOCAL-00025" summary="fix: 응답에러수정">
+      <created>1612428527056</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1612428527056</updated>
+    </task>
+    <task id="LOCAL-00026" summary="fix: endpoint수정">
+      <created>1612429135742</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1612429135742</updated>
+    </task>
+    <task id="LOCAL-00027" summary="fix: 알 수도 있는 친구 문제 해결">
+      <created>1612456524277</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1612456524277</updated>
+    </task>
+    <task id="LOCAL-00028" summary="fix: 알 수도 있는 친구 응답 메소드 문제 해결">
+      <created>1612456762830</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1612456762830</updated>
+    </task>
+    <task id="LOCAL-00029" summary="fix: 알 수도 있는 친구 쿼리에서 자기자신리턴, 스코어 =0, 팔로우 관계아닌사람 리턴">
+      <created>1612457079810</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1612457079810</updated>
+    </task>
+    <task id="LOCAL-00030" summary="fix: 알 수도 있는 친구 알고리즘 교체, FofF+pagerank 결합">
+      <created>1612491993232</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1612491993232</updated>
+    </task>
+    <task id="LOCAL-00031" summary="fix: 알 수도 있는 친구 알고리즘 교체, FofF+pagerank 결합, 오타수정">
+      <created>1612492339349</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1612492339349</updated>
+    </task>
+    <task id="LOCAL-00032" summary="fix: 좋아할 만한 친구 알고리즘 수정, 날짜반영 우선 취소">
+      <created>1612529213465</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1612529213465</updated>
+    </task>
+    <task id="LOCAL-00033" summary="fix: 좋아할 만한 친구 알고리즘 수정, 날짜반영 취소 및 유사도 0 삭제">
+      <created>1612529626926</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1612529626926</updated>
+    </task>
+    <task id="LOCAL-00034" summary="fix: 좋아할 만한 친구 알고리즘 수정, 날짜반영 취소 및 유사도 0 삭제">
+      <created>1612670698111</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1612670698111</updated>
+    </task>
+    <task id="LOCAL-00035" summary="fix: like 쿼리문 수정">
+      <created>1612671116050</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1612671116050</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="feat: 알 수도 있는 친구 구현중..3" />
+    <MESSAGE value="feat: 알 수도 있는 친구 구현중..4" />
+    <MESSAGE value="feat: 알 수도 있는 친구 구현중..Session naming error" />
+    <MESSAGE value="feat: 알 수도 있는 친구 구현중..Session graphname 임시로받기" />
+    <MESSAGE value="feat: 알 수도 있는 친구 구현중..Session graphname 임시로받기2" />
+    <MESSAGE value="feat: 알 수도있는 친구 &amp; 좋아할만한 친구 추천 기능" />
+    <MESSAGE value="fix: 필요한 데이터를 리턴 하는 것으로수정" />
+    <MESSAGE value="fix: 추천 모델 개선 (1)-최신 7일기간 접속자 가산점 부여" />
+    <MESSAGE value="fix: 결괏값리턴 문제 해결" />
+    <MESSAGE value="feat: 추천 기능완료" />
+    <MESSAGE value="fix: 변수명 수정" />
+    <MESSAGE value="fix: rename error 수정" />
+    <MESSAGE value="fix: return data수정" />
+    <MESSAGE value="fix: 데이터가 없을 때 응답값 수정" />
+    <MESSAGE value="fix: 응답에러수정" />
+    <MESSAGE value="fix: endpoint수정" />
+    <MESSAGE value="fix: 알 수도 있는 친구 문제 해결" />
+    <MESSAGE value="fix: 알 수도 있는 친구 응답 메소드 문제 해결" />
+    <MESSAGE value="fix: 알 수도 있는 친구 쿼리 문제해결" />
+    <MESSAGE value="fix: 알 수도 있는 친구 쿼리에서 자기자신리턴, 스코어 =0, 팔로우 관계아닌사람 리턴" />
+    <MESSAGE value="fix: 알 수도 있는 친구 알고리즘 교체, FofF+pagerank 결합" />
+    <MESSAGE value="fix: 알 수도 있는 친구 알고리즘 교체, FofF+pagerank 결합, 오타수정" />
+    <MESSAGE value="fix: 좋아할 만한 친구 알고리즘 수정, 날짜반영 우선 취소" />
+    <MESSAGE value="fix: 좋아할 만한 친구 알고리즘 수정, 날짜반영 취소 및 유사도 0 삭제" />
+    <MESSAGE value="fix: like 쿼리문 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix: like 쿼리문 수정" />
+  </component>
+</project>
