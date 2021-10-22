@@ -1,4 +1,4 @@
-package com.soulmates.valley.feature.feed.controller;
+package com.soulmates.valley.controller;
 
 import com.soulmates.valley.common.constants.CodeEnum;
 import com.soulmates.valley.common.dto.CommonResponse;
@@ -24,15 +24,11 @@ public class HomeFeedController {
     private final HomeFeedService homeFeedService;
 
     @GetMapping("/all")
-    public ResponseEntity<?> getFeedPostAll(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+    public ResponseEntity<CommonResponse> getFeedPostAll(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
                                             @Valid FeedLimitRequest feedLimitRequest, Errors error) {
-        if (error.hasErrors()) {
-            String errMsg = Objects.requireNonNull(error.getFieldError()).getDefaultMessage();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errMsg);
-        }
         Long userId = JWTParser.getUidFromJWT(token);
 
         List<PostDetail> postInfoList = homeFeedService.getFeedPostList(userId, feedLimitRequest.getPage(), feedLimitRequest.getSize());
-        return ResponseEntity.ok().body(new CommonResponse(CodeEnum.SUCCESS, postInfoList));
+        return ResponseEntity.ok(new CommonResponse(CodeEnum.SUCCESS, postInfoList));
     }
 }

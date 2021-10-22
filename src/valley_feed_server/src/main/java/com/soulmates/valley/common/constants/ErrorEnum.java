@@ -7,6 +7,13 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 public enum ErrorEnum {
+    /* 기타 오류 메세지 정의 */
+    ETC(1000, "알 수 없는 오류입니다."),
+    PARAM_INVALID(1001, "올바르지 않은 파라미터입니다."),
+    UPLOAD_ERROR(1002, "파일 업로드 오류입니다."),
+    RABBIT_CONNECT_ERROR(1003, "Rabbitmq 통신 오류입니다."),
+    /* 기타 오류 메세지 정의 끝*/
+
     /* 회원 오류 메세지 정의 */
     USER_NOT_FOUND(1100, "해당 유저가 존재하지 않습니다."),
     /* 회원 오류 메세지 정의 끝*/
@@ -26,15 +33,8 @@ public enum ErrorEnum {
     /* 댓글 오류 메세지 정의 끝*/
 
     /* 좋아요 오류 메세지 정의 */
-    LIKE_UNDER_ZERO(1500, "게시물의 총 좋아요 개수가 0 이하로 변경될 수 없습니다."),
+    LIKE_UNDER_ZERO(1500, "게시물의 총 좋아요 개수가 0 이하로 변경될 수 없습니다.");
     /* 좋아요 오류 메세지 정의 끝*/
-
-    /* 기타 오류 메세지 정의 */
-    ETC(1000, "알 수 없는 오류입니다."),
-    PARAM_INVALID(1001, "올바르지 않은 파라미터입니다."),
-    UPLOAD_ERROR(1002, "파일 업로드 오류입니다."),
-    RABBIT_CONNECT_ERROR(1003, "Rabbitmq 통신 오류입니다.");
-    /* 기타 오류 메세지 정의 끝*/
 
     private final ErrorResponse errorResponse;
 

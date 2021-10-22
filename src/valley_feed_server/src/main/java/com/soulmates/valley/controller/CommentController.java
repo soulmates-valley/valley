@@ -1,4 +1,4 @@
-package com.soulmates.valley.feature.comment.controller;
+package com.soulmates.valley.controller;
 
 import com.soulmates.valley.common.constants.CodeEnum;
 import com.soulmates.valley.common.constants.ErrorEnum;
@@ -28,32 +28,22 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<?> addCommentToPost(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
-                                              @RequestBody @Valid CommentAddRequest commentAddRequest, Errors error) {
-        if (error.hasErrors()) {
-            String errMsg = Objects.requireNonNull(error.getFieldError()).getDefaultMessage();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errMsg);
-        }
+    public ResponseEntity<CommonResponse> addCommentToPost(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+                                              @RequestBody @Valid CommentAddRequest commentAddRequest) {
         Long userId = JWTParser.getUidFromJWT(token);
 
         CommentInfo commentInfo = commentService.addCommentToPost(commentAddRequest, userId);
 
-        return ResponseEntity.ok().body(new CommonResponse(CodeEnum.SUCCESS, commentInfo));
+        return ResponseEntity.ok(new CommonResponse(CodeEnum.SUCCESS, commentInfo));
     }
 
     @GetMapping("/all")
-    public ResponseEntity<?> getCommentFromPost(@RequestParam(required = true) Long postId,
-                                                @Valid CommentPageLimitReuqest commentPageLimitReuqest, Errors error) {
-        if (error.hasErrors()) {
-            String errMsg = Objects.requireNonNull(error.getFieldError()).getDefaultMessage();
-            log.info(errMsg);
-            return ResponseEntity.ok(new CommonResponse(ErrorEnum.PARAM_INVALID, errMsg));
-        }
-
+    public ResponseEntity<CommonResponse> getCommentFromPost(@RequestParam(required = true) Long postId,
+                                                @Valid CommentPageLimitReuqest commentPageLimitReuqest) {
         List<CommentInfo> commentSlice = commentService.getCommentFromPost(postId,
                 commentPageLimitReuqest.getPage(),
                 commentPageLimitReuqest.getSize());
-        return ResponseEntity.ok().body(new CommonResponse(CodeEnum.SUCCESS, commentSlice));
+        return ResponseEntity.ok(new CommonResponse(CodeEnum.SUCCESS, commentSlice));
     }
 }
 

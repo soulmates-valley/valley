@@ -1,4 +1,4 @@
-package com.soulmates.valley.feature.like.controller;
+package com.soulmates.valley.controller;
 
 import com.soulmates.valley.common.constants.CodeEnum;
 import com.soulmates.valley.common.dto.CommonResponse;
@@ -18,7 +18,7 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping
-    public ResponseEntity<?> addLikeToPost(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+    public ResponseEntity<CommonResponse> addLikeToPost(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
                                            @RequestParam("postId") Long postId) {
         Long userId = JWTParser.getUidFromJWT(token);
 

@@ -1,4 +1,4 @@
-package com.soulmates.valley.feature.feed.controller;
+package com.soulmates.valley.controller;
 
 import com.soulmates.valley.common.constants.CodeEnum;
 import com.soulmates.valley.common.dto.CommonResponse;
@@ -26,10 +26,10 @@ public class RecommendFeedController {
     private final RecommendFeedService recommendFeedService;
 
     @GetMapping
-    public ResponseEntity<?> getRecommendFeed(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) {
+    public ResponseEntity<CommonResponse> getRecommendFeed(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token) {
         Long userId = JWTParser.getUidFromJWT(token);
 
         List<PostDetail> feed = recommendFeedService.getRecommendFeedByInterest(userId);
-        return ResponseEntity.ok().body(new CommonResponse(CodeEnum.SUCCESS, feed));
+        return ResponseEntity.ok(new CommonResponse(CodeEnum.SUCCESS, feed));
     }
 }

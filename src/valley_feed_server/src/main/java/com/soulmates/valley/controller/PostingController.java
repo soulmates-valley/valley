@@ -1,4 +1,4 @@
-package com.soulmates.valley.feature.posting.controller;
+package com.soulmates.valley.controller;
 
 import com.soulmates.valley.common.constants.CodeEnum;
 import com.soulmates.valley.common.constants.ErrorEnum;
@@ -27,38 +27,30 @@ public class PostingController {
     private final PostService postService;
 
     @PostMapping(consumes = {"multipart/form-data"})
-    public ResponseEntity<?> addPost(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+    public ResponseEntity<CommonResponse> addPost(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
                                      @ModelAttribute @Valid PostAddRequest postUploadRequest, Errors error) {
-        if (error.hasErrors()) {
-            String errMsg = Objects.requireNonNull(error.getFieldError()).getDefaultMessage();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errMsg);
-        }
         Long userId = JWTParser.getUidFromJWT(token);
 
         postService.addPost(userId, postUploadRequest);
-        return ResponseEntity.ok().body(new CommonResponse(CodeEnum.SUCCESS));
+        return ResponseEntity.ok(new CommonResponse(CodeEnum.SUCCESS));
     }
 
     @GetMapping
-    public ResponseEntity<?> getPostDetail(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+    public ResponseEntity<CommonResponse> getPostDetail(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
                                            @RequestParam(required = true) Long postId) {
         Long userId = JWTParser.getUidFromJWT(token);
 
         PostDetail postDetail = postService.getPostDetail(postId, userId);
-        return ResponseEntity.ok().body(new CommonResponse(CodeEnum.SUCCESS, postDetail));
+        return ResponseEntity.ok(new CommonResponse(CodeEnum.SUCCESS, postDetail));
     }
 
     @GetMapping("/detail")
-    public ResponseEntity<?> getUserPostList(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+    public ResponseEntity<CommonResponse> getUserPostList(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
                                              @Valid PostLimitRequest postLimitRequest, Errors error) {
-        if (error.hasErrors()) {
-            String errMsg = Objects.requireNonNull(error.getFieldError()).getDefaultMessage();
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errMsg);
-        }
         Long userId = JWTParser.getUidFromJWT(token);
 
         List<PostDetail> postDetailList = postService.getUserPostList(userId, postLimitRequest);
 
-        return ResponseEntity.ok().body(new CommonResponse(CodeEnum.SUCCESS, postDetailList));
+        return ResponseEntity.ok(new CommonResponse(CodeEnum.SUCCESS, postDetailList));
     }
 }
