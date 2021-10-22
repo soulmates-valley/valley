@@ -14,6 +14,7 @@ import javax.validation.constraints.Size;
 @Setter
 @Getter
 public class CommentAddRequest {
+
     @NotNull(message = "post id는 필수 입력 값입니다.")
     private Long postId;
 

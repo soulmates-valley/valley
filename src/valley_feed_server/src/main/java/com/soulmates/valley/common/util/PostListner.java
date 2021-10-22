@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 @Component
 public class PostListner extends AbstractMongoEventListener<PostDoc> {
+
     private final SequenceGenerator sequenceGenerator;
 
     @Override

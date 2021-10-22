@@ -7,6 +7,7 @@ import org.springframework.data.neo4j.repository.query.Query;
 import java.util.Optional;
 
 public interface PostGraphRepository extends Neo4jRepository<PostNode, Long> {
+
     @Query("MATCH (u:User{userId:$userId})-[:POSTED_LAST]->(p:Post) " +
             "RETURN p ")
     Optional<PostNode> getLastPostByUserId(Long userId);

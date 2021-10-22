@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "postId")
 @Getter
 public class PostInfo implements Serializable {
+
     private Long postId;
 
     private LocalDateTime createDt;

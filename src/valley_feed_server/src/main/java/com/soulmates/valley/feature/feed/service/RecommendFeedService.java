@@ -20,6 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class RecommendFeedService {
+
     private final RecommendFeedRepository recommendFeedRepository;
     private final PostDocRepository postDocRepository;
     private final FeedCombiner feedCombiner;

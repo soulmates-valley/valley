@@ -15,6 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class TimeLineService {
+
     private final UserGraphRepository userGraphRepository;
     private final TimeLineGraphRepository timeLineRepository;
 

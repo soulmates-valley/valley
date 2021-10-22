@@ -11,6 +11,9 @@ import java.util.*;
 
 @Service
 public class PostCombiner {
+
+    private PostCombiner(){}
+
     public static List<PostDetail> combinePostList(List<PostDoc> postDocList, List<PostInfo> postInfoList) {
         if (postDocList.size() != postInfoList.size())
             throw new CustomException(ErrorEnum.ETC);

@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 @Getter
 public class PostUpdateRequest {
+
     @NotBlank(message = "내용은 필수 입력 값입니다.")
     @Size(max = 1000, message = "내용의 최대 길이는 1000입니다.")
     private String content;

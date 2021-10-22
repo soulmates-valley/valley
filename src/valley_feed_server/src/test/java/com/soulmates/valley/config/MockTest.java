@@ -1,10 +1,10 @@
 package com.soulmates.valley.config;
 
-import org.junit.Ignore;
-import org.junit.runner.RunWith;
-import org.mockito.junit.MockitoJUnitRunner;
+import org.junit.jupiter.api.Disabled;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-@RunWith(MockitoJUnitRunner.class)
-@Ignore
-public class MockTest {
+@Disabled
+@ExtendWith(MockitoExtension.class)
+public abstract class MockTest {
 }

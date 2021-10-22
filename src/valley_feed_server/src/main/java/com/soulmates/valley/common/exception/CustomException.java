@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 
 @Getter
 public class CustomException extends RuntimeException {
+
     protected ErrorEnum errorEnum;
 
     public CustomException(ErrorEnum errorEnum) {

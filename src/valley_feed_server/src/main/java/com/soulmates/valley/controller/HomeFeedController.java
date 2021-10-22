@@ -21,6 +21,7 @@ import java.util.Objects;
 @RequestMapping("/feed")
 @RestController
 public class HomeFeedController {
+
     private final HomeFeedService homeFeedService;
 
     @GetMapping("/all")

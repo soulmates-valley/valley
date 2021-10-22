@@ -24,6 +24,7 @@ import java.util.Objects;
 @RequestMapping("/post")
 @RestController
 public class PostingController {
+
     private final PostService postService;
 
     @PostMapping(consumes = {"multipart/form-data"})

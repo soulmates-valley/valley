@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Node("Comment")
 public class CommentNode {
+
     @Id
     @GeneratedValue
     private Long id;

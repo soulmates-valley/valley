@@ -9,6 +9,9 @@ import javax.crypto.spec.SecretKeySpec;
 
 @Component
 public class JWTParser {
+
+    private JWTParser(){}
+
     public static Long getUidFromJWT(String token) {
         return Long.parseLong(String.valueOf(parseJWT(token).get("userId")));
     }

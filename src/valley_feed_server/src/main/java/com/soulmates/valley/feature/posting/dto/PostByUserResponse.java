@@ -10,6 +10,7 @@ import java.util.List;
 @Setter
 @Getter
 public class PostByUserResponse {
+
     private Long sincePostId;
 
     private Long maxPostId;

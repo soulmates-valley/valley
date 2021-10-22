@@ -17,6 +17,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @Service
 public class CommentService {
+
     private final PostCountService postCountService;
     private final CommentGraphRepository commentRepository;
     private final EventSender eventSender;

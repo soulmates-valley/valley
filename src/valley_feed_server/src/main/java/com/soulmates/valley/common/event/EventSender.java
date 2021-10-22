@@ -1,6 +1,5 @@
 package com.soulmates.valley.common.event;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soulmates.valley.common.constants.MessageEnum;
 import com.soulmates.valley.common.event.message.CommentCreateEvent;
 import com.soulmates.valley.common.event.message.CustomMessage;
@@ -17,6 +16,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Service
 public class EventSender {
+
     private final RabbitTemplate rabbitTemplate;
 
     public void sendCommentCreateEvent(Long fromUserId, Long toUserId, Long postId) {

@@ -16,6 +16,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Service
 public class LikeService {
+
     private final PostGraphRepository postGraphRepository;
     private final PostCountService postCountService;
     private final UserGraphRepository userGraphRepository;

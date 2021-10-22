@@ -28,6 +28,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class PostService {
+
     private final PostGraphRepository postGraphRepository;
     private final PostDocRepository postDocRepository;
     private final TimeLineService timeLineService;

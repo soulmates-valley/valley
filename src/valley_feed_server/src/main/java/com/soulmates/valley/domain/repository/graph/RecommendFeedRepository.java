@@ -12,6 +12,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @Repository
 public class RecommendFeedRepository {
+
     private final Neo4jClient neo4jClient;
     private final Neo4jTemplate neo4jTemplate;
     private final Renderer cypherRenderer;

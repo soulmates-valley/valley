@@ -1,7 +1,6 @@
 package com.soulmates.valley.domain.model.doc;
 
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.soulmates.valley.domain.constants.PostType;
 import com.soulmates.valley.domain.model.graph.UserNode;
 import com.soulmates.valley.feature.posting.dto.PostAddRequest;
@@ -26,6 +25,7 @@ import java.util.stream.Collectors;
 @Builder
 @Document("post")
 public class PostDoc {
+
     @Id
     private long id;
 

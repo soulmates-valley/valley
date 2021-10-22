@@ -1,6 +1,7 @@
 package com.soulmates.valley.common.constants;
 
 public enum MessageEnum {
+
     /* Exchange 이름 정의 */
     TOPIC_EXCHANGE_NAME("feed.topic"),
     /* Exchange 이름 정의 끝 */

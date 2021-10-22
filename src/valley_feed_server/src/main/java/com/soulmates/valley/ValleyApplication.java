@@ -11,6 +11,7 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 @EnableNeo4jRepositories("com.soulmates.valley.domain.repository.graph")
 @EnableMongoRepositories("com.soulmates.valley.domain.repository.doc")
 public class ValleyApplication {
+
     public static void main(String[] args) {
         SpringApplication.run(ValleyApplication.class, args);
     }

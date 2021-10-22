@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class FeedCombiner {
+
     private final ObjectMapper objectMapper;
 
     public List<PostInfo> combineFeed(Collection<Map<String, Object>> feedIntersetTemp, Collection<Map<String, Object>> feedFollowTemp) {

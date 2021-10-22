@@ -14,6 +14,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 public class PostLimitRequest {
+
     @NotNull(message = "size는 필수 입력값 입니다.")
     @Max(value = 50, message = "요청할 수 있는 size의 최대크기는 50입니다.")
     private int size;

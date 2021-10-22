@@ -14,6 +14,7 @@ import java.util.List;
 @RequiredArgsConstructor
 @AllArgsConstructor
 public class PostDetail {
+
     private Long postId;
 
     private String postType;

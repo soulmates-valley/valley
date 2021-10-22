@@ -9,6 +9,7 @@ import javax.validation.constraints.NotNull;
 @Setter
 @Getter
 public class CommentPageLimitReuqest {
+
     @NotNull(message = "page는 필수 입력값 입니다.")
     private int page;
 

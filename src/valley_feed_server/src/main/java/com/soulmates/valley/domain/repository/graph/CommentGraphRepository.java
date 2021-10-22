@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface CommentGraphRepository extends Neo4jRepository<CommentNode, Long> {
+
     @Query("MATCH (:Post{postId:$postId})<-[:COMMENTED]-(c:Comment)<-[:WRITE]-(u:User)" +
             "RETURN c, u.userId as userId, u.nickname as nickname, u.profileImg as profileImg " +
             "ORDER BY c.createDt ASC SKIP $page LIMIT $size ")

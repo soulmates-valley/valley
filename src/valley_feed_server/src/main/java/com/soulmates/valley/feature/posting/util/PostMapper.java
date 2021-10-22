@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class PostMapper {
+
     private final ObjectMapper objectMapper;
 
     public List<PostInfo> convertPostList(Collection<Map<String, Object>> postList) {

@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @Node("Post")
 public class PostNode {
+
     @Id
     private Long postId;
 

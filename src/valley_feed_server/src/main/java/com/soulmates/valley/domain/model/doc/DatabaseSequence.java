@@ -11,6 +11,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @Document(collection = "database_sequences")
 public class DatabaseSequence {
+
     @Id
     private String id;
 

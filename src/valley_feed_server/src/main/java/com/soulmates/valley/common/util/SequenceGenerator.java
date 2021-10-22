@@ -15,6 +15,7 @@ import static org.springframework.data.mongodb.core.query.Query.query;
 @RequiredArgsConstructor
 @Service
 public class SequenceGenerator {
+
     private final MongoOperations mongoOperations;
 
     public long generateSequence(String seqName) {

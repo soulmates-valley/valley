@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface UserGraphRepository extends Neo4jRepository<UserNode, Long> {
+
     @Query("MATCH (p:Post{postId:$postId})<-[:PREVIOUS|POSTED_LAST*]-(u:User) RETURN u ")
     Optional<UserNode> findOwnerByPostId(Long postId);
 

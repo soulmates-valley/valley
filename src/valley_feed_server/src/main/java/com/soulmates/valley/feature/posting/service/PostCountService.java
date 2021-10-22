@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 @Service
 public class PostCountService {
+
     private final PostDocRepository postDocRepository;
 
     public PostDoc increaseLikeCnt(Long postId) {

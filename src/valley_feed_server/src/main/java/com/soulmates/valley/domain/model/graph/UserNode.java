@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @EqualsAndHashCode(of = "userId")
 @Node("User")
 public class UserNode {
+
     @Id
     private Long userId;
 

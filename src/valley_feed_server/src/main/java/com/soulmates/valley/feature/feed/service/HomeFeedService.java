@@ -24,6 +24,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 @Service
 public class HomeFeedService {
+
     private final TimeLineGraphRepository timeLineGraphRepository;
     private final PostDocRepository postDocRepository;
     private final RedisTemplate<String, PostInfo> redisTemplate;

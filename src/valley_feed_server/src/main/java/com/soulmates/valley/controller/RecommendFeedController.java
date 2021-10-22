@@ -23,6 +23,7 @@ import java.util.Map;
 @RequestMapping("/recommend/feed")
 @RestController
 public class RecommendFeedController {
+
     private final RecommendFeedService recommendFeedService;
 
     @GetMapping

@@ -19,6 +19,7 @@ import java.util.*;
 @RequiredArgsConstructor
 @Repository
 public class TimeLineGraphRepository {
+
     private final Neo4jClient neo4jClient;
     private final Neo4jTemplate neo4jTemplate;
     private final Renderer cypherRenderer;

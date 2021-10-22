@@ -17,6 +17,7 @@ import java.util.stream.Collectors;
 @Builder
 @Node("HashTag")
 public class HashTagNode {
+
     @Id
     private String content;
 
