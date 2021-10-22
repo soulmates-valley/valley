@@ -14,11 +14,9 @@ import com.soulmates.valley.feature.posting.dto.*;
 import com.soulmates.valley.domain.repository.graph.PostGraphRepository;
 import com.soulmates.valley.feature.posting.util.PostCombiner;
 import lombok.RequiredArgsConstructor;
-import org.json.JSONException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.io.IOException;
 import java.util.Collection;
 import java.util.LinkedList;
 import java.util.List;

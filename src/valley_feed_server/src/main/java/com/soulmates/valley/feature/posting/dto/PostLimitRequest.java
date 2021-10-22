@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.domain.Sort;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;

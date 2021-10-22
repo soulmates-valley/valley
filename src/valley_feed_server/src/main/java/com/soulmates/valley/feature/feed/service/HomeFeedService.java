@@ -1,7 +1,5 @@
 package com.soulmates.valley.feature.feed.service;
 
-import com.soulmates.valley.common.constants.ErrorEnum;
-import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.feature.posting.util.PostMapper;
 import com.soulmates.valley.domain.model.doc.PostDoc;
 import com.soulmates.valley.domain.repository.doc.PostDocRepository;

@@ -1,9 +1,6 @@
 package com.soulmates.valley.feature.comment.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -12,6 +9,7 @@ import javax.validation.constraints.Size;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Setter
+@Builder
 @Getter
 public class CommentAddRequest {
 

@@ -5,8 +5,6 @@ import com.soulmates.valley.common.dto.CommonResponse;
 import com.soulmates.valley.common.util.JWTParser;
 import com.soulmates.valley.feature.feed.service.RecommendFeedService;
 import com.soulmates.valley.feature.posting.dto.PostDetail;
-import com.soulmates.valley.feature.posting.dto.PostInfo;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -15,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.Map;
 
 @RequiredArgsConstructor
 @RequestMapping("/recommend/feed")

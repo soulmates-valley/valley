@@ -8,8 +8,8 @@ import org.springframework.data.neo4j.repository.config.EnableNeo4jRepositories;
 
 @SpringBootApplication
 @EnableConfigurationProperties
-@EnableNeo4jRepositories("com.soulmates.valley.domain.repository.graph")
-@EnableMongoRepositories("com.soulmates.valley.domain.repository.doc")
+// @EnableNeo4jRepositories("com.soulmates.valley.domain.repository.graph")
+// @EnableMongoRepositories("com.soulmates.valley.domain.repository.doc")
 public class ValleyApplication {
 
     public static void main(String[] args) {

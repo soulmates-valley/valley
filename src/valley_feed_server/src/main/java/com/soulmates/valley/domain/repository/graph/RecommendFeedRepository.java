@@ -1,9 +1,7 @@
 package com.soulmates.valley.domain.repository.graph;
 
 import lombok.RequiredArgsConstructor;
-import org.neo4j.cypherdsl.core.renderer.Renderer;
 import org.springframework.data.neo4j.core.Neo4jClient;
-import org.springframework.data.neo4j.core.Neo4jTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.Collection;
@@ -14,8 +12,6 @@ import java.util.Map;
 public class RecommendFeedRepository {
 
     private final Neo4jClient neo4jClient;
-    private final Neo4jTemplate neo4jTemplate;
-    private final Renderer cypherRenderer;
 
     public Collection<Map<String, Object>> getRecommendFeedByInterest(Long userId) {
         String query = "MATCH (u1:User{userId:" + userId + "})-[:INTERESTED_IN]->(i:Interest) " +

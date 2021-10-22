@@ -10,17 +10,15 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
-import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@RequiredArgsConstructor
 @RestControllerAdvice
-public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
+public class GlobalExceptionHandler {
 
-    @ExceptionHandler({CustomException.class})
+    @ExceptionHandler(value = {CustomException.class})
     public ResponseEntity<CommonResponse> handleCustomException(CustomException ex) {
         ErrorEnum errorEnum = ex.getErrorEnum();
         log.info("--- [{}] 시스템 오류 감지 : {}", errorEnum.getErrCode(), errorEnum.getMessage(), ex);
@@ -40,9 +38,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return ResponseEntity.ok(response);
     }
 
-    @ExceptionHandler({Exception.class})
+    @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<CommonResponse> handleException(Exception ex) {
-        logger.error("--- 알 수 없는 오류 감지. {} ", ex);
+        log.error("--- 알 수 없는 오류 감지.  ", ex);
         return ResponseEntity.ok(new CommonResponse(ErrorEnum.ETC));
     }
 
