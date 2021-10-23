@@ -1,12 +1,16 @@
 package com.soulmates.valley.feature.comment.dto;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 
+@Builder
 @Setter
+@AllArgsConstructor
 @Getter
 public class CommentPageLimitReuqest {
 

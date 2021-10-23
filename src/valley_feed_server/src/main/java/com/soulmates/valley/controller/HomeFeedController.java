@@ -8,7 +8,6 @@ import com.soulmates.valley.feature.feed.dto.FeedLimitRequest;
 import com.soulmates.valley.feature.feed.service.HomeFeedService;
 import com.soulmates.valley.feature.posting.dto.PostDetail;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;

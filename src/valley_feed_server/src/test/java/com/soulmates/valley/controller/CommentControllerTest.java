@@ -3,8 +3,13 @@ package com.soulmates.valley.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soulmates.valley.common.constants.CodeEnum;
 import com.soulmates.valley.common.constants.ResponseCode;
+import com.soulmates.valley.common.dto.Users;
+import com.soulmates.valley.common.util.JWTParser;
 import com.soulmates.valley.feature.comment.dto.CommentAddRequest;
+import com.soulmates.valley.feature.comment.dto.CommentInfo;
+import com.soulmates.valley.feature.comment.dto.CommentPageLimitReuqest;
 import com.soulmates.valley.feature.comment.service.CommentService;
+import com.soulmates.valley.testconfig.example.CommentExample;
 import com.soulmates.valley.testconfig.example.TokenExample;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -18,6 +23,13 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.ArgumentMatchers.anyInt;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.BDDMockito.given;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -37,16 +49,21 @@ public class CommentControllerTest {
     private CommentService commentService;
 
     private String token;
+    private CommentInfo comment1;
+    private CommentInfo comment2;
 
     @BeforeEach
     void setUp(){
         token = new TokenExample().example();
+        Users currentUser = JWTParser.getUsersFromJWT(token);
+        comment1 = new CommentExample().example(currentUser);
+        comment2 = new CommentExample().example2(currentUser);
     }
 
     @DisplayName("포스트 댓글 등록")
     @Nested
     class AddCommentToPost{
-        @DisplayName("[정상] 댓글 등록")
+        @DisplayName("[정상] 등록성공")
         @Test
         void create() throws Exception {
             // given
@@ -87,4 +104,42 @@ public class CommentControllerTest {
                     .andDo(print());
         }
     }
+
+    @DisplayName("특정 post의 댓글 조회")
+    @Nested
+    class GetCommentFromPost{
+        @DisplayName("[정상] 조회성공")
+        @Test
+        void getComment() throws Exception {
+            // given
+            Long postId = 11L;
+            CommentPageLimitReuqest commentPageLimitReuqest = CommentPageLimitReuqest.builder()
+                    .page(1)
+                    .size(10).build();
+            List<CommentInfo> response = new ArrayList<>();
+            response.add(comment1);
+            response.add(comment2);
+            given(commentService.getCommentFromPost(anyLong(), anyInt(), anyInt())).willReturn(response);
+
+            // when
+            ResultActions resultActions = requestGetComment(token, postId, commentPageLimitReuqest);
+
+            // then
+            resultActions
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.code").value(CodeEnum.SUCCESS.getValue()));
+        }
+
+        private ResultActions requestGetComment(String token, Long postId, CommentPageLimitReuqest commentPageLimitReuqest) throws Exception {
+            return mockMvc.perform(get(BASE_URL + "/all")
+                    .contentType(MediaType.APPLICATION_JSON)
+                    .param("postId", postId + "")
+                    .param("page", commentPageLimitReuqest.getPage() + "")
+                    .param("size", commentPageLimitReuqest.getSize() + "")
+                    .header(HttpHeaders.AUTHORIZATION, token)
+                    .content(objectMapper.writeValueAsString(commentPageLimitReuqest)))
+                    .andDo(print());
+        }
+    }
 }
+

@@ -27,13 +27,8 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public ResponseEntity<CommonResponse<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<String> fieldErrorMessage = getFieldErrorMessage(e.getFieldErrors());
-
-        CommonResponse<Object> response = CommonResponse.builder()
-                .code(ResponseCode.PARAM_INVALID.getErrCode())
-                .data(fieldErrorMessage).build();
-
+        CommonResponse<Object> response = new CommonResponse<>(ResponseCode.PARAM_INVALID, fieldErrorMessage);
         log.error("Argument is wrong: {}", response.getData());
-
         return ResponseEntity.ok(response);
     }
 
