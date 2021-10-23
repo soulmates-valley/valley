@@ -1,10 +1,12 @@
 package com.soulmates.valley.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.soulmates.valley.common.constants.CodeEnum;
 import com.soulmates.valley.common.constants.ErrorEnum;
-import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.feature.comment.dto.CommentAddRequest;
 import com.soulmates.valley.feature.comment.service.CommentService;
+import com.soulmates.valley.testconfig.example.TokenExample;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
@@ -34,14 +36,37 @@ public class CommentControllerTest {
     @MockBean
     private CommentService commentService;
 
+    private String token;
+
+    @BeforeEach
+    void setUp(){
+        token = new TokenExample().example();
+    }
+
     @DisplayName("포스트 댓글 등록")
     @Nested
     class AddCommentToPost{
+        @DisplayName("[정상] 댓글 등록")
+        @Test
+        void create() throws Exception {
+            // given
+            CommentAddRequest commentAddRequest = CommentAddRequest.builder()
+                    .content("hi")
+                    .postId(2L).build();
+
+            // when
+            ResultActions resultActions = requestAddComment(token, commentAddRequest);
+
+            // then
+            resultActions
+                    .andExpect(status().isOk())
+                    .andExpect(jsonPath("$.code").value(CodeEnum.SUCCESS.getValue()));
+        }
+
         @DisplayName("[오류] content 빈 값으로 요청한 경우")
         @Test
         void contentIsNull() throws Exception {
             // given
-            String token = "1111";
             CommentAddRequest commentAddRequest = CommentAddRequest.builder()
                     .postId(2L).build();
 
@@ -57,7 +82,7 @@ public class CommentControllerTest {
         private ResultActions requestAddComment(String token, CommentAddRequest commentAddRequest) throws Exception {
             return mockMvc.perform(post(BASE_URL)
                     .contentType(MediaType.APPLICATION_JSON)
-                    .header(HttpHeaders.AUTHORIZATION,token)
+                    .header(HttpHeaders.AUTHORIZATION, token)
                     .content(objectMapper.writeValueAsString(commentAddRequest)))
                     .andDo(print());
         }

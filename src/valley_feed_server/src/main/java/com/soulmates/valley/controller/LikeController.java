@@ -2,10 +2,10 @@ package com.soulmates.valley.controller;
 
 import com.soulmates.valley.common.constants.CodeEnum;
 import com.soulmates.valley.common.dto.CommonResponse;
-import com.soulmates.valley.common.util.JWTParser;
+import com.soulmates.valley.common.dto.Users;
+import com.soulmates.valley.common.resolver.CurrentUser;
 import com.soulmates.valley.feature.like.service.LikeService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,20 +17,16 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping
-    public ResponseEntity<CommonResponse> addLikeToPost(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+    public ResponseEntity<CommonResponse> addLikeToPost(@CurrentUser Users users,
                                            @RequestParam("postId") Long postId) {
-        Long userId = JWTParser.getUidFromJWT(token);
-
-        likeService.addLikeToPost(postId, userId);
+        likeService.addLikeToPost(postId, users.getUserId());
         return ResponseEntity.ok().body(new CommonResponse(CodeEnum.SUCCESS));
     }
 
     @DeleteMapping
-    public ResponseEntity<?> deleteLikeToPost(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+    public ResponseEntity<CommonResponse> deleteLikeToPost(@CurrentUser Users users,
                                               @RequestParam("postId") Long postId) {
-        Long userId = JWTParser.getUidFromJWT(token);
-
-        likeService.deleteLikeToPost(postId, userId);
+        likeService.deleteLikeToPost(postId, users.getUserId());
         return ResponseEntity.ok().body(new CommonResponse(CodeEnum.SUCCESS));
     }
 }

@@ -1,4 +1,4 @@
-package com.soulmates.valley.config;
+package com.soulmates.valley.testconfig;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Disabled;

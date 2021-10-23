@@ -1,4 +1,4 @@
-package com.soulmates.valley.config;
+package com.soulmates.valley.testconfig;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.extension.ExtendWith;

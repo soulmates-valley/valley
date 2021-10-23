@@ -2,14 +2,14 @@ package com.soulmates.valley.controller;
 
 import com.soulmates.valley.common.constants.CodeEnum;
 import com.soulmates.valley.common.dto.CommonResponse;
-import com.soulmates.valley.common.util.JWTParser;
+import com.soulmates.valley.common.dto.Users;
+import com.soulmates.valley.common.resolver.CurrentUser;
 import com.soulmates.valley.feature.comment.dto.CommentAddRequest;
 import com.soulmates.valley.feature.comment.dto.CommentInfo;
 import com.soulmates.valley.feature.comment.dto.CommentPageLimitReuqest;
 import com.soulmates.valley.feature.comment.service.CommentService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -25,12 +25,9 @@ public class CommentController {
     private final CommentService commentService;
 
     @PostMapping
-    public ResponseEntity<CommonResponse> addCommentToPost(@RequestHeader(name = HttpHeaders.AUTHORIZATION) String token,
+    public ResponseEntity<CommonResponse> addCommentToPost(@CurrentUser Users users,
                                               @RequestBody @Valid CommentAddRequest commentAddRequest) {
-        Long userId = JWTParser.getUidFromJWT(token);
-
-        CommentInfo commentInfo = commentService.addCommentToPost(commentAddRequest, userId);
-
+        CommentInfo commentInfo = commentService.addCommentToPost(commentAddRequest, users.getUserId());
         return ResponseEntity.ok(new CommonResponse(CodeEnum.SUCCESS, commentInfo));
     }
 

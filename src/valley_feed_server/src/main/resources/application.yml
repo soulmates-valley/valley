@@ -1,5 +1,10 @@
 server:
   port: 8030
+  servlet:
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
 
 spring:
   neo4j:
@@ -35,4 +40,6 @@ cloud:
       instance-profile: true
       accessKey: # input s3 accessKey
       secretKey: # input s3 secretKey
+
+
 

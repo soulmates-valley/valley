@@ -1,14 +1,15 @@
 package com.soulmates.valley.common.util;
 
+import com.soulmates.valley.common.dto.Users;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
-import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
-@Component
 public class JWTParser {
+
+    private static final String ENCODED_KEY = "a@u#t%hse#rver0102test!@#%";
 
     private JWTParser(){}
 
@@ -16,7 +17,15 @@ public class JWTParser {
         return Long.parseLong(String.valueOf(parseJWT(token).get("userId")));
     }
 
-    public static Claims parseJWT(String jwt) {
+    public static Users getUsersFromJWT(String token){
+        Claims claims = parseJWT(token);
+        return Users.builder()
+                .nickname(String.valueOf(claims.get("nickname")))
+                .userEmail(String.valueOf(claims.get("userEmail")))
+                .userId(Long.valueOf(String.valueOf(claims.get("userId")))).build();
+    }
+
+    private static Claims parseJWT(String jwt) {
         SecretKey secretKey = generalKey();
         return Jwts.parser()
                 .setSigningKey(secretKey)
@@ -24,10 +33,8 @@ public class JWTParser {
                 .getBody();
     }
 
-    public static SecretKey generalKey() {
-        final String encodedKey = "a@u#t%hse#rver0102test!@#%";
-        byte[] encodeKeyChar = encodedKey.getBytes();
-        SecretKey key = new SecretKeySpec(encodeKeyChar, 0, encodeKeyChar.length, "HS256");
-        return key;
+    private static SecretKey generalKey() {
+        byte[] encodeKeyChar = ENCODED_KEY.getBytes();
+        return new SecretKeySpec(encodeKeyChar, 0, encodeKeyChar.length, "HS256");
     }
 }

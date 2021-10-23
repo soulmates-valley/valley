@@ -79,7 +79,7 @@ public class PostDoc {
                 .linkSiteName(postUploadRequest.getLinkSiteName())
                 .userId(userNode.getUserId())
                 .userImage(userNode.getProfileImg())
-                .hashTag(postUploadRequest.getHashTag().stream().map((h)->{return h.replaceAll("\"","");}).collect(Collectors.toList()))
+                .hashTag(postUploadRequest.getHashTag().stream().map(PostDoc::apply).collect(Collectors.toList()))
                 .images(images)
                 .nickname(userNode.getNickname())
                 .createDt(LocalDateTime.now())
@@ -97,6 +97,10 @@ public class PostDoc {
         }
 
         return post;
+    }
+
+    private static String apply(String h) {
+        return h.replaceAll("\"", "");
     }
 
     public void updatePost(PostUpdateRequest postUpdateRequest) {
