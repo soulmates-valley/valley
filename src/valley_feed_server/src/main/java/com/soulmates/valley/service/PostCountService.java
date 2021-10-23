@@ -36,7 +36,6 @@ public class PostCountService {
      * @throws CustomException 게시글이 존재하지 않으면 exception 발생
      * @throws CustomException 좋아요 0 이하로 요청할때 exception 발생
      */
-
     public PostDoc decreaseLikeCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));
