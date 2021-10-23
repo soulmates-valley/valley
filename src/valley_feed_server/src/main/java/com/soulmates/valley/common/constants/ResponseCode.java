@@ -5,7 +5,9 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum ErrorEnum {
+public enum ResponseCode {
+    SUCCESS(200, "success"),
+
     /* 기타 오류 메세지 정의 */
     ETC(1000, "알 수 없는 오류입니다."),
     PARAM_INVALID(1001, "올바르지 않은 파라미터입니다."),
@@ -46,7 +48,7 @@ public enum ErrorEnum {
     }
 
 
-    ErrorEnum(int errCode, String message) {
+    ResponseCode(int errCode, String message) {
         this.errorResponse = new ErrorResponse(errCode, message);
     }
 

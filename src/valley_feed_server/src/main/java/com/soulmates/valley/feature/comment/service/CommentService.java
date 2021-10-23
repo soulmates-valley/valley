@@ -1,6 +1,6 @@
 package com.soulmates.valley.feature.comment.service;
 
-import com.soulmates.valley.common.constants.ErrorEnum;
+import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.event.EventSender;
 import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.domain.model.doc.PostDoc;
@@ -26,7 +26,7 @@ public class CommentService {
     public CommentInfo addCommentToPost(CommentAddRequest commentAddRequest, Long userId) {
         PostDoc post = postCountService.increaseCommentCnt(commentAddRequest.getPostId());
         CommentInfo commentInfo = commentRepository.addCommentToPost(commentAddRequest.getPostId(), userId, commentAddRequest.getContent())
-                .orElseThrow(() -> new CustomException(ErrorEnum.COMMENT_NOT_CREATE));
+                .orElseThrow(() -> new CustomException(ResponseCode.COMMENT_NOT_CREATE));
 
         eventSender.sendCommentCreateEvent(userId, post.getUserId(), post.getId());
         return commentInfo;

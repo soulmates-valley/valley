@@ -1,6 +1,6 @@
 package com.soulmates.valley.feature.like.service;
 
-import com.soulmates.valley.common.constants.ErrorEnum;
+import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.event.EventSender;
 import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.domain.model.graph.UserNode;
@@ -24,7 +24,7 @@ public class LikeService {
     public void addLikeToPost(Long postId, Long userId) {
         postCountService.increaseLikeCnt(postId);
         UserNode postOwner = userGraphRepository.findOwnerByPostId(postId)
-                .orElseThrow(() -> new CustomException(ErrorEnum.POST_OWNER_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ResponseCode.POST_OWNER_NOT_FOUND));
 
         eventSender.sendLikeCreateEvent(userId, postOwner.getUserId(), postId);
         postGraphRepository.addLikeToPost(postId, userId);

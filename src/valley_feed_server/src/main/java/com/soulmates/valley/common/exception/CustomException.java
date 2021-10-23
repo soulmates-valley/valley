@@ -1,15 +1,15 @@
 package com.soulmates.valley.common.exception;
 
-import com.soulmates.valley.common.constants.ErrorEnum;
+import com.soulmates.valley.common.constants.ResponseCode;
 import lombok.Getter;
 
 @Getter
 public class CustomException extends RuntimeException {
 
-    private final ErrorEnum errorEnum;
+    private final ResponseCode responseCode;
 
-    public CustomException(ErrorEnum errorEnum) {
-        super(errorEnum.toString());
-        this.errorEnum = errorEnum;
+    public CustomException(ResponseCode responseCode) {
+        super(responseCode.toString());
+        this.responseCode = responseCode;
     }
 }

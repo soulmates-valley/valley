@@ -1,6 +1,6 @@
 package com.soulmates.valley.controller;
 
-import com.soulmates.valley.common.constants.CodeEnum;
+import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.dto.CommonResponse;
 import com.soulmates.valley.common.dto.Users;
 import com.soulmates.valley.common.resolver.CurrentUser;
@@ -22,9 +22,9 @@ public class HomeFeedController {
     private final HomeFeedService homeFeedService;
 
     @GetMapping("/all")
-    public ResponseEntity<CommonResponse> getFeedPostAll(@CurrentUser Users users,
+    public CommonResponse<List<PostDetail>> getFeedPostAll(@CurrentUser Users users,
                                             @Valid FeedLimitRequest feedLimitRequest) {
         List<PostDetail> postInfoList = homeFeedService.getFeedPostList(users.getUserId(), feedLimitRequest.getPage(), feedLimitRequest.getSize());
-        return ResponseEntity.ok(new CommonResponse(CodeEnum.SUCCESS, postInfoList));
+        return new CommonResponse<>(ResponseCode.SUCCESS, postInfoList);
     }
 }

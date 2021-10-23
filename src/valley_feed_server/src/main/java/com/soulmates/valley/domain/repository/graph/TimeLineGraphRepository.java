@@ -1,6 +1,6 @@
 package com.soulmates.valley.domain.repository.graph;
 
-import com.soulmates.valley.common.constants.ErrorEnum;
+import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.domain.constants.RelationDirection;
 import com.soulmates.valley.domain.constants.NodeType;
@@ -73,7 +73,7 @@ public class TimeLineGraphRepository {
         } else if (direction == RelationDirection.OUTGOING) {
             query = "MATCH (f:User{userId:" + userId + "})-[timeline:TIMELINE_" + timeLineUserId + "]->(:User) delete timeline ";
         } else {
-            throw new CustomException(ErrorEnum.PARAM_INVALID);
+            throw new CustomException(ResponseCode.PARAM_INVALID);
         }
         neo4jClient.query(query).fetch().one();
     }

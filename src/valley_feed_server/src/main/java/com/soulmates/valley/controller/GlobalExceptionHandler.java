@@ -1,9 +1,8 @@
 package com.soulmates.valley.controller;
 
-import com.soulmates.valley.common.constants.ErrorEnum;
+import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.dto.CommonResponse;
 import com.soulmates.valley.common.exception.CustomException;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.FieldError;
@@ -19,18 +18,18 @@ import java.util.List;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(value = {CustomException.class})
-    public ResponseEntity<CommonResponse> handleCustomException(CustomException ex) {
-        ErrorEnum errorEnum = ex.getErrorEnum();
-        log.info("--- [{}] 시스템 오류 감지 : {}", errorEnum.getErrCode(), errorEnum.getMessage(), ex);
-        return ResponseEntity.ok(new CommonResponse(errorEnum));
+    public ResponseEntity<CommonResponse<Object>> handleCustomException(CustomException ex) {
+        ResponseCode responseCode = ex.getResponseCode();
+        log.info("--- [{}] 시스템 오류 감지 : {}", responseCode.getErrCode(), responseCode.getMessage(), ex);
+        return ResponseEntity.ok(new CommonResponse<>(responseCode));
     }
 
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
-    public ResponseEntity<CommonResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
+    public ResponseEntity<CommonResponse<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<String> fieldErrorMessage = getFieldErrorMessage(e.getFieldErrors());
 
-        CommonResponse response = CommonResponse.builder()
-                .code(ErrorEnum.PARAM_INVALID.getErrCode())
+        CommonResponse<Object> response = CommonResponse.builder()
+                .code(ResponseCode.PARAM_INVALID.getErrCode())
                 .data(fieldErrorMessage).build();
 
         log.error("Argument is wrong: {}", response.getData());
@@ -39,9 +38,9 @@ public class GlobalExceptionHandler {
     }
 
     @ExceptionHandler(value = {Exception.class})
-    public ResponseEntity<CommonResponse> handleException(Exception ex) {
+    public ResponseEntity<Object> handleException(Exception ex) {
         log.error("--- 알 수 없는 오류 감지.  ", ex);
-        return ResponseEntity.ok(new CommonResponse(ErrorEnum.ETC));
+        return ResponseEntity.ok(new CommonResponse<>(ResponseCode.ETC));
     }
 
     private List<String> getFieldErrorMessage(List<FieldError> fieldErrors) {

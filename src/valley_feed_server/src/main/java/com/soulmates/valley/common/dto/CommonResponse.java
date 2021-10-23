@@ -1,7 +1,6 @@
 package com.soulmates.valley.common.dto;
 
-import com.soulmates.valley.common.constants.CodeEnum;
-import com.soulmates.valley.common.constants.ErrorEnum;
+import com.soulmates.valley.common.constants.ResponseCode;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -11,27 +10,19 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @Builder
-public class CommonResponse {
+public class CommonResponse<T> {
     private int code;
-    Object data;
+    private String message;
+    T data;
 
-    public CommonResponse(CodeEnum code) {
-        this.code = code.getValue();
-        this.data = "";
+    public CommonResponse(ResponseCode responseCode) {
+        this.code = responseCode.getErrCode();
+        this.message = responseCode.getMessage();
     }
 
-    public CommonResponse(CodeEnum code, Object data) {
-        this.code = code.getValue();
+    public CommonResponse(ResponseCode responseCode, T data) {
+        this.code = responseCode.getErrCode();
+        this.message = responseCode.getMessage();
         this.data = data;
-    }
-
-    public CommonResponse(ErrorEnum errorEnum) {
-        this.code = errorEnum.getErrCode();
-        this.data = errorEnum.getMessage();
-    }
-
-    public CommonResponse(ErrorEnum errorEnum, String errMsg) {
-        this.code = errorEnum.getErrCode();
-        this.data = errMsg;
     }
 }

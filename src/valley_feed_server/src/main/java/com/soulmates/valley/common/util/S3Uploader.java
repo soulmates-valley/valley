@@ -2,7 +2,7 @@ package com.soulmates.valley.common.util;
 
 import com.amazonaws.services.s3.AmazonS3Client;
 import com.amazonaws.services.s3.model.PutObjectRequest;
-import com.soulmates.valley.common.constants.ErrorEnum;
+import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.exception.CustomException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -37,7 +37,7 @@ public class S3Uploader {
             try {
                 result.add(upload(file));
             } catch (IOException e) {
-                throw new CustomException(ErrorEnum.UPLOAD_ERROR);
+                throw new CustomException(ResponseCode.UPLOAD_ERROR);
             }
         }
         return result;

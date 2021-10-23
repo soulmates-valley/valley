@@ -2,7 +2,7 @@ package com.soulmates.valley.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soulmates.valley.common.constants.CodeEnum;
-import com.soulmates.valley.common.constants.ErrorEnum;
+import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.feature.comment.dto.CommentAddRequest;
 import com.soulmates.valley.feature.comment.service.CommentService;
 import com.soulmates.valley.testconfig.example.TokenExample;
@@ -76,7 +76,7 @@ public class CommentControllerTest {
             // then
             resultActions
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.code").value(ErrorEnum.PARAM_INVALID.getErrCode()));
+                    .andExpect(jsonPath("$.code").value(ResponseCode.PARAM_INVALID.getErrCode()));
         }
 
         private ResultActions requestAddComment(String token, CommentAddRequest commentAddRequest) throws Exception {

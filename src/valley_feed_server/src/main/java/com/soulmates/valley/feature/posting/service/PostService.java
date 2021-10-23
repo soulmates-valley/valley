@@ -1,6 +1,6 @@
 package com.soulmates.valley.feature.posting.service;
 
-import com.soulmates.valley.common.constants.ErrorEnum;
+import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.event.EventSender;
 import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.feature.posting.util.PostMapper;
@@ -41,7 +41,7 @@ public class PostService {
     @Transactional
     public PostDoc addPost(Long userId, PostAddRequest postAddRequest) {
         UserNode user = userGraphRepository.findById(userId)
-                .orElseThrow(() -> new CustomException(ErrorEnum.USER_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
         List<String> imageList = new LinkedList<>();
         if (postAddRequest.isExistImages()) {
@@ -76,7 +76,7 @@ public class PostService {
 
     public PostDetail getPostDetail(Long postId, Long userId) {
         PostDoc postDoc = postDocRepository.findById(postId)
-                .orElseThrow(() -> new CustomException(ErrorEnum.POST_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));
         boolean isLiked = postGraphRepository.isLikedByUserId(postId, userId);
         return PostDetail.of(postDoc, isLiked);
     }
