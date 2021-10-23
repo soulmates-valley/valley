@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
-public class PostService {
+public class PostInfoService {
 
     private final PostGraphRepository postGraphRepository;
     private final PostDocRepository postDocRepository;
@@ -41,6 +41,13 @@ public class PostService {
 
     private final static long NO_MAX_POST_ID = -1L;
 
+    /**
+     * 게시글 등록 기능
+     *
+     * @param userId 게시글 등록 user 식별자
+     * @param postAddRequest 게시글 등록 정보
+     * @return 게시글 정보
+     */
     @Transactional
     public PostDoc addPost(Long userId, PostAddRequest postAddRequest) {
         UserNode user = userGraphRepository.findById(userId)
@@ -55,12 +62,18 @@ public class PostService {
         postGraphRepository.addNewPost(userId, post.getId());
 
         eventSender.sendPostAndHashTagCreateEvent(post);
-
-        //update timeline for all followers
         timeLineService.updateTimeLine(user);
+
         return post;
     }
 
+    /**
+     * 특정 user가 작성한 게시글 조회 (= 프로필 조회 용도)
+     *
+     * @param userId user 식별자
+     * @param postLimitRequest 게시글 조회 정보
+     * @return user가 작성한 게시글 List
+     */
     public List<PostDetail> getUserPostList(Long userId, PostLimitRequest postLimitRequest) {
         Collection<Map<String, Object>> postInfo;
         if (postLimitRequest.getMaxPostId() == null || postLimitRequest.getMaxPostId() == NO_MAX_POST_ID) {
@@ -76,6 +89,13 @@ public class PostService {
         return PostCombiner.combinePostList(postDocList, postInfoList);
     }
 
+    /**
+     * 게시글 상세정보 조회
+     *
+     * @param postId post 식별자
+     * @param userId 조회 요청한 user 식별자 (좋아요 여부 확인 용도)
+     * @return 게시글 상세정보
+     */
     public PostDetail getPostDetail(Long postId, Long userId) {
         PostDoc postDoc = postDocRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));

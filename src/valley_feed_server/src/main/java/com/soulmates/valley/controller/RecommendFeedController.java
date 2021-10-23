@@ -1,8 +1,8 @@
 package com.soulmates.valley.controller;
 
 import com.soulmates.valley.common.constants.ResponseCode;
-import com.soulmates.valley.common.dto.CommonResponse;
-import com.soulmates.valley.common.dto.UserInfo;
+import com.soulmates.valley.dto.common.CommonResponse;
+import com.soulmates.valley.dto.common.UserInfo;
 import com.soulmates.valley.common.resolver.CurrentUser;
 import com.soulmates.valley.service.RecommendFeedService;
 import com.soulmates.valley.dto.posting.PostDetail;

@@ -1,4 +1,4 @@
-package com.soulmates.valley.common.dto;
+package com.soulmates.valley.dto.common;
 
 import com.soulmates.valley.common.constants.ResponseCode;
 import lombok.AllArgsConstructor;

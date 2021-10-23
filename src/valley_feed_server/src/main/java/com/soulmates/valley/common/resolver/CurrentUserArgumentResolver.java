@@ -1,6 +1,6 @@
 package com.soulmates.valley.common.resolver;
 
-import com.soulmates.valley.common.dto.UserInfo;
+import com.soulmates.valley.dto.common.UserInfo;
 import com.soulmates.valley.common.util.JWTParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;

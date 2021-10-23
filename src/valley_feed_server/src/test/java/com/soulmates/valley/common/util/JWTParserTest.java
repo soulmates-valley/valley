@@ -1,6 +1,6 @@
 package com.soulmates.valley.common.util;
 
-import com.soulmates.valley.common.dto.UserInfo;
+import com.soulmates.valley.dto.common.UserInfo;
 import com.soulmates.valley.testconfig.MockTest;
 import com.soulmates.valley.testconfig.example.TokenExample;
 import org.junit.jupiter.api.Test;

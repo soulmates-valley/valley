@@ -26,6 +26,12 @@ public class RecommendFeedService {
     private final FeedCombiner feedCombiner;
     private final RedisTemplate<String, PostInfo> redisTemplate;
 
+    /**
+     * 추천피드 게시글 조회
+     *
+     * @param userId 조회하고자하는 user 식별자
+     * @return 추천피드 게시글 List
+     */
     public List<PostDetail> getRecommendFeedByInterest(Long userId) {
         final String FEED_KEY = "recommend:" + userId;
 

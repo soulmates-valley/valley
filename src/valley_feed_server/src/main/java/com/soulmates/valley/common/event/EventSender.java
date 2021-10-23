@@ -24,7 +24,7 @@ public class EventSender {
                 .code(MessageEnum.COMMENT_CREATE)
                 .data(new CommentCreateEvent(fromUserId, toUserId, postId)).build();
 
-        sendEvent(message, MessageEnum.TOPIC_EXCHANGE_NAME.getValue(), MessageEnum.COMMENT_CREATE.getValue());
+        sendEvent(message, MessageEnum.TOPIC_EXCHANGE_NAME.getRoutingKey(), MessageEnum.COMMENT_CREATE.getRoutingKey());
     }
 
     public void sendLikeCreateEvent(Long fromUserId, Long toUserId, Long postId) {
@@ -32,7 +32,7 @@ public class EventSender {
                 .code(MessageEnum.LIKE_CREATE)
                 .data(new LikeCreateEvent(fromUserId, toUserId, postId)).build();
 
-        sendEvent(message, MessageEnum.TOPIC_EXCHANGE_NAME.getValue(), MessageEnum.LIKE_CREATE.getValue());
+        sendEvent(message, MessageEnum.TOPIC_EXCHANGE_NAME.getRoutingKey(), MessageEnum.LIKE_CREATE.getRoutingKey());
     }
 
     public void sendPostAndHashTagCreateEvent(PostDoc postDoc) {
@@ -41,7 +41,7 @@ public class EventSender {
     }
 
     public void sendPostCreateEvent(PostDoc postDoc) {
-        rabbitTemplate.convertAndSend(MessageEnum.TOPIC_EXCHANGE_NAME.getValue(), MessageEnum.POST_CREATE.getValue(), PostDocDto.of(postDoc));
+        rabbitTemplate.convertAndSend(MessageEnum.TOPIC_EXCHANGE_NAME.getRoutingKey(), MessageEnum.POST_CREATE.getRoutingKey(), PostDocDto.of(postDoc));
     }
 
     public void sendHashTagCreateEvent(PostDoc postDoc) {
@@ -49,7 +49,7 @@ public class EventSender {
             return;
         List<Map<String, String>> hashList = postDoc.getHashTagList();
         for (Map<String, String> hash : hashList) {
-            rabbitTemplate.convertAndSend(MessageEnum.TOPIC_EXCHANGE_NAME.getValue(), MessageEnum.HASHTAG_CREATE.getValue(), hash);
+            rabbitTemplate.convertAndSend(MessageEnum.TOPIC_EXCHANGE_NAME.getRoutingKey(), MessageEnum.HASHTAG_CREATE.getRoutingKey(), hash);
         }
     }
 

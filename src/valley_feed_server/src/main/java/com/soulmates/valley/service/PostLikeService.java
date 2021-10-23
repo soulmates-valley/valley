@@ -12,13 +12,20 @@ import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
-public class LikeService {
+public class PostLikeService {
 
     private final PostGraphRepository postGraphRepository;
     private final PostCountService postCountService;
     private final UserGraphRepository userGraphRepository;
     private final EventSender eventSender;
 
+    /**
+     * 포스트 좋아요 기능
+     *
+     * @param postId 좋아요 요청한 post 식별자
+     * @param userId 좋아요 요청한 user 식별자
+     * @throws CustomException postId에 해당하는 user 정보가 없으면 exception 발생
+     */
     @Transactional
     public void addLikeToPost(Long postId, Long userId) {
         postCountService.increaseLikeCnt(postId);
@@ -29,6 +36,12 @@ public class LikeService {
         postGraphRepository.addLikeToPost(postId, userId);
     }
 
+    /**
+     * 포스트 좋아요 취소 기능
+     *
+     * @param postId 좋아요 요청 취소한 post 식별자
+     * @param userId 좋아요 요청 취소한 user 식별자
+     */
     @Transactional
     public void deleteLikeToPost(Long postId, Long userId) {
         postCountService.decreaseLikeCnt(postId);

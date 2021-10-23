@@ -1,6 +1,6 @@
 package com.soulmates.valley.testconfig.example;
 
-import com.soulmates.valley.common.dto.UserInfo;
+import com.soulmates.valley.dto.common.UserInfo;
 import com.soulmates.valley.dto.posting.PostDetail;
 
 import java.time.LocalDateTime;

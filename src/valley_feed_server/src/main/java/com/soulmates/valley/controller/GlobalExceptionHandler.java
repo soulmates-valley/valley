@@ -1,7 +1,7 @@
 package com.soulmates.valley.controller;
 
 import com.soulmates.valley.common.constants.ResponseCode;
-import com.soulmates.valley.common.dto.CommonResponse;
+import com.soulmates.valley.dto.common.CommonResponse;
 import com.soulmates.valley.common.exception.CustomException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;

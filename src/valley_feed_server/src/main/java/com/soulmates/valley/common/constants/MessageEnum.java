@@ -13,13 +13,13 @@ public enum MessageEnum {
     HASHTAG_CREATE("hash.create");
     /* 라우팅키 이름 정의 끝 */
 
-    private final String value;
+    private final String routingKey;
 
-    MessageEnum(String value) {
-        this.value = value;
+    MessageEnum(String routingKey) {
+        this.routingKey = routingKey;
     }
 
-    public String getValue() {
-        return value;
+    public String getRoutingKey() {
+        return routingKey;
     }
 }

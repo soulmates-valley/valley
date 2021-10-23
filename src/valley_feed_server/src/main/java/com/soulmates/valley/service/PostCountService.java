@@ -13,6 +13,12 @@ public class PostCountService {
 
     private final PostDocRepository postDocRepository;
 
+    /**
+     * 포스트 좋아요 총개수 증가
+     *
+     * @param postId 게시글 식별자
+     * @return 게시글 정보
+     */
     public PostDoc increaseLikeCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));
@@ -20,6 +26,13 @@ public class PostCountService {
         postDocRepository.save(post);
         return post;
     }
+
+    /**
+     * 포스트 좋아요 총개수 감소
+     *
+     * @param postId 게시글 식별자
+     * @return 게시글 정보
+     */
 
     public PostDoc decreaseLikeCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
@@ -32,6 +45,12 @@ public class PostCountService {
         return post;
     }
 
+    /**
+     * 포스트 댓글 총개수 증가
+     *
+     * @param postId 게시글 식별자
+     * @return 게시글 정보
+     */
     public PostDoc increaseCommentCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));
@@ -40,6 +59,12 @@ public class PostCountService {
         return post;
     }
 
+    /**
+     * 포스트 댓글 총개수 감소
+     *
+     * @param postId 게시글 식별자
+     * @return 게시글 정보
+     */
     public PostDoc decreaseCommentCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));

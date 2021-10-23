@@ -2,7 +2,7 @@ package com.soulmates.valley.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soulmates.valley.common.constants.ResponseCode;
-import com.soulmates.valley.common.dto.UserInfo;
+import com.soulmates.valley.dto.common.UserInfo;
 import com.soulmates.valley.common.util.JWTParser;
 import com.soulmates.valley.dto.feed.FeedLimitRequest;
 import com.soulmates.valley.service.HomeFeedService;

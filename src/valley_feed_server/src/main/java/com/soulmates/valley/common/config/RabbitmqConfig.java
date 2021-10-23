@@ -1,4 +1,4 @@
-package com.soulmates.valley.common.event;
+package com.soulmates.valley.common.config;
 
 import com.soulmates.valley.common.constants.MessageEnum;
 import org.springframework.amqp.core.TopicExchange;
@@ -25,6 +25,6 @@ public class RabbitmqConfig {
 
     @Bean
     TopicExchange exchange() {
-        return new TopicExchange(MessageEnum.TOPIC_EXCHANGE_NAME.getValue());
+        return new TopicExchange(MessageEnum.TOPIC_EXCHANGE_NAME.getRoutingKey());
     }
 }

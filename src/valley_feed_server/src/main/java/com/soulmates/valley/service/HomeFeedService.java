@@ -31,6 +31,14 @@ public class HomeFeedService {
     private static final int FEED_LENGTH = 150;
     private static final int FEED_FROM_DATE = 5;
 
+    /**
+     * 홈피드 조회
+     *
+     * @param userId 조회하고자 하는 user 식별자
+     * @param page 조회 page
+     * @param size 조회 size
+     * @return 홈피드 게시글 List
+     */
     public List<PostDetail> getFeedPostList(Long userId, long page, long size) {
         final String FEED_KEY = "feed:" + userId;
 
