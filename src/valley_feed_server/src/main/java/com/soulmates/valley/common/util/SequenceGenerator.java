@@ -1,6 +1,6 @@
 package com.soulmates.valley.common.util;
 
-import com.soulmates.valley.domain.model.doc.DatabaseSequence;
+import com.soulmates.valley.domain.model.DatabaseSequence;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.MongoOperations;
 import org.springframework.data.mongodb.core.query.Update;

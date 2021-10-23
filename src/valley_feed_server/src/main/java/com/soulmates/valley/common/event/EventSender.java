@@ -5,7 +5,7 @@ import com.soulmates.valley.common.event.message.CommentCreateEvent;
 import com.soulmates.valley.common.event.message.CustomMessage;
 import com.soulmates.valley.common.event.message.LikeCreateEvent;
 import com.soulmates.valley.common.event.message.PostDocDto;
-import com.soulmates.valley.domain.model.doc.PostDoc;
+import com.soulmates.valley.domain.model.PostDoc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;

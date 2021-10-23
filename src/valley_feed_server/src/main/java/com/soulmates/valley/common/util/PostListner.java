@@ -1,6 +1,6 @@
 package com.soulmates.valley.common.util;
 
-import com.soulmates.valley.domain.model.doc.PostDoc;
+import com.soulmates.valley.domain.model.PostDoc;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.mongodb.core.mapping.event.AbstractMongoEventListener;
 import org.springframework.data.mongodb.core.mapping.event.BeforeConvertEvent;

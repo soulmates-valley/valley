@@ -1,7 +1,7 @@
 package com.soulmates.valley.common.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soulmates.valley.feature.posting.dto.PostInfo;
+import com.soulmates.valley.dto.posting.PostInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

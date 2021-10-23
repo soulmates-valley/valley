@@ -1,14 +1,13 @@
 package com.soulmates.valley.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soulmates.valley.common.constants.CodeEnum;
 import com.soulmates.valley.common.constants.ResponseCode;
-import com.soulmates.valley.common.dto.Users;
+import com.soulmates.valley.common.dto.UserInfo;
 import com.soulmates.valley.common.util.JWTParser;
-import com.soulmates.valley.feature.comment.dto.CommentAddRequest;
-import com.soulmates.valley.feature.comment.dto.CommentInfo;
-import com.soulmates.valley.feature.comment.dto.CommentPageLimitReuqest;
-import com.soulmates.valley.feature.comment.service.CommentService;
+import com.soulmates.valley.dto.comment.CommentAddRequest;
+import com.soulmates.valley.dto.comment.CommentInfo;
+import com.soulmates.valley.dto.comment.CommentPageLimitReuqest;
+import com.soulmates.valley.service.CommentService;
 import com.soulmates.valley.testconfig.example.CommentExample;
 import com.soulmates.valley.testconfig.example.TokenExample;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,7 +54,7 @@ public class CommentControllerTest {
     @BeforeEach
     void setUp(){
         token = new TokenExample().example();
-        Users currentUser = JWTParser.getUsersFromJWT(token);
+        UserInfo currentUser = JWTParser.getUsersFromJWT(token);
         comment1 = new CommentExample().example(currentUser);
         comment2 = new CommentExample().example2(currentUser);
     }
@@ -77,7 +76,7 @@ public class CommentControllerTest {
             // then
             resultActions
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.code").value(CodeEnum.SUCCESS.getValue()));
+                    .andExpect(jsonPath("$.code").value(ResponseCode.SUCCESS.getCode()));
         }
 
         @DisplayName("[오류] content 빈 값으로 요청한 경우")
@@ -93,7 +92,7 @@ public class CommentControllerTest {
             // then
             resultActions
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.code").value(ResponseCode.PARAM_INVALID.getErrCode()));
+                    .andExpect(jsonPath("$.code").value(ResponseCode.PARAM_INVALID.getCode()));
         }
 
         private ResultActions requestAddComment(String token, CommentAddRequest commentAddRequest) throws Exception {
@@ -127,7 +126,7 @@ public class CommentControllerTest {
             // then
             resultActions
                     .andExpect(status().isOk())
-                    .andExpect(jsonPath("$.code").value(CodeEnum.SUCCESS.getValue()));
+                    .andExpect(jsonPath("$.code").value(ResponseCode.SUCCESS.getCode()));
         }
 
         private ResultActions requestGetComment(String token, Long postId, CommentPageLimitReuqest commentPageLimitReuqest) throws Exception {
@@ -136,8 +135,7 @@ public class CommentControllerTest {
                     .param("postId", postId + "")
                     .param("page", commentPageLimitReuqest.getPage() + "")
                     .param("size", commentPageLimitReuqest.getSize() + "")
-                    .header(HttpHeaders.AUTHORIZATION, token)
-                    .content(objectMapper.writeValueAsString(commentPageLimitReuqest)))
+                    .header(HttpHeaders.AUTHORIZATION, token))
                     .andDo(print());
         }
     }

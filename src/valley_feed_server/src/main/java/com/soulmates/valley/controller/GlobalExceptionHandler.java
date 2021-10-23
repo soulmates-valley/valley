@@ -20,7 +20,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = {CustomException.class})
     public ResponseEntity<CommonResponse<Object>> handleCustomException(CustomException ex) {
         ResponseCode responseCode = ex.getResponseCode();
-        log.info("--- [{}] 시스템 오류 감지 : {}", responseCode.getErrCode(), responseCode.getMessage(), ex);
+        log.info("--- [{}] 시스템 오류 감지 : {}", responseCode.getCode(), responseCode.getMessage(), ex);
         return ResponseEntity.ok(new CommonResponse<>(responseCode));
     }
 

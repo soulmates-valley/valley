@@ -16,12 +16,12 @@ public class CommonResponse<T> {
     T data;
 
     public CommonResponse(ResponseCode responseCode) {
-        this.code = responseCode.getErrCode();
+        this.code = responseCode.getCode();
         this.message = responseCode.getMessage();
     }
 
     public CommonResponse(ResponseCode responseCode, T data) {
-        this.code = responseCode.getErrCode();
+        this.code = responseCode.getCode();
         this.message = responseCode.getMessage();
         this.data = data;
     }

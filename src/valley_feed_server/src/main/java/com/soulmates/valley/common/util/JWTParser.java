@@ -1,6 +1,6 @@
 package com.soulmates.valley.common.util;
 
-import com.soulmates.valley.common.dto.Users;
+import com.soulmates.valley.common.dto.UserInfo;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
@@ -17,9 +17,9 @@ public class JWTParser {
         return Long.parseLong(String.valueOf(parseJWT(token).get("userId")));
     }
 
-    public static Users getUsersFromJWT(String token){
+    public static UserInfo getUsersFromJWT(String token){
         Claims claims = parseJWT(token);
-        return Users.builder()
+        return UserInfo.builder()
                 .nickname(String.valueOf(claims.get("nickname")))
                 .userEmail(String.valueOf(claims.get("userEmail")))
                 .userId(Long.valueOf(String.valueOf(claims.get("userId")))).build();

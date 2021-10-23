@@ -1,6 +1,6 @@
 package com.soulmates.valley.common.event.message;
 
-import com.soulmates.valley.domain.model.doc.PostDoc;
+import com.soulmates.valley.domain.model.PostDoc;
 import lombok.*;
 
 import java.time.LocalDateTime;

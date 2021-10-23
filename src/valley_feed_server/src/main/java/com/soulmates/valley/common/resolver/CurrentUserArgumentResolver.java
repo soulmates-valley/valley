@@ -1,6 +1,6 @@
 package com.soulmates.valley.common.resolver;
 
-import com.soulmates.valley.common.dto.Users;
+import com.soulmates.valley.common.dto.UserInfo;
 import com.soulmates.valley.common.util.JWTParser;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.core.MethodParameter;
@@ -25,7 +25,7 @@ public class CurrentUserArgumentResolver implements HandlerMethodArgumentResolve
                                   NativeWebRequest webRequest, WebDataBinderFactory binderFactory) {
         String token = webRequest.getHeader(HttpHeaders.AUTHORIZATION);
         log.info("--- [CurrentUserArgumentResolver] token : {}", token);
-        Users currentUser = JWTParser.getUsersFromJWT(token);
+        UserInfo currentUser = JWTParser.getUsersFromJWT(token);
         log.info("--- [currentUser] userId : {}", currentUser.getUserId());
         return currentUser;
     }

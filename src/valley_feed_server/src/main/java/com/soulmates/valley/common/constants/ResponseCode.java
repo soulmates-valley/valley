@@ -1,11 +1,10 @@
 package com.soulmates.valley.common.constants;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 
 @Getter
-@AllArgsConstructor
 public enum ResponseCode {
+
     SUCCESS(200, "success"),
 
     /* 기타 오류 메세지 정의 */
@@ -37,29 +36,12 @@ public enum ResponseCode {
     LIKE_UNDER_ZERO(1500, "게시물의 총 좋아요 개수가 0 이하로 변경될 수 없습니다.");
     /* 좋아요 오류 메세지 정의 끝*/
 
-    private final ErrorResponse errorResponse;
+    private final int code;
 
-    public String getMessage() {
-        return this.errorResponse.getMessage();
-    }
+    private final String message;
 
-    public int getErrCode() {
-        return this.errorResponse.getErrCode();
-    }
-
-
-    ResponseCode(int errCode, String message) {
-        this.errorResponse = new ErrorResponse(errCode, message);
-    }
-
-    @Getter
-    public static class ErrorResponse {
-        private final int errCode;
-        private final String message;
-
-        public ErrorResponse(int errCode, String message) {
-            this.errCode = errCode;
-            this.message = message;
-        }
+    ResponseCode(int code, String message){
+        this.code = code;
+        this.message = message;
     }
 }
