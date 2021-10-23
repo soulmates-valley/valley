@@ -3,6 +3,7 @@ package com.soulmates.valley.service;
 import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.event.EventSender;
 import com.soulmates.valley.common.exception.CustomException;
+import com.soulmates.valley.domain.constants.RelationDirection;
 import com.soulmates.valley.dto.posting.PostAddRequest;
 import com.soulmates.valley.dto.posting.PostDetail;
 import com.soulmates.valley.dto.posting.PostInfo;
@@ -20,10 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Collection;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -32,10 +30,9 @@ public class PostInfoService {
 
     private final PostGraphRepository postGraphRepository;
     private final PostDocRepository postDocRepository;
-    private final TimeLineService timeLineService;
     private final UserGraphRepository userGraphRepository;
-    private final TimeLineGraphRepository timeLineGraphRepository;
     private final PostMapper postMapper;
+    private final TimeLineGraphRepository timeLineRepository;
     private final S3Uploader s3Uploader;
     private final EventSender eventSender;
 
@@ -62,7 +59,7 @@ public class PostInfoService {
         postGraphRepository.addNewPost(userId, post.getId());
 
         eventSender.sendPostAndHashTagCreateEvent(post);
-        timeLineService.updateTimeLine(user);
+        updateTimeLine(user);
 
         return post;
     }
@@ -77,9 +74,9 @@ public class PostInfoService {
     public List<PostDetail> getUserPostList(Long userId, PostLimitRequest postLimitRequest) {
         Collection<Map<String, Object>> postInfo;
         if (postLimitRequest.getMaxPostId() == null || postLimitRequest.getMaxPostId() == NO_MAX_POST_ID) {
-            postInfo = timeLineGraphRepository.getUserPostInfoFirst(postLimitRequest.getSearchUserId(), userId, postLimitRequest.getSize());
+            postInfo = timeLineRepository.getUserPostInfoFirst(postLimitRequest.getSearchUserId(), userId, postLimitRequest.getSize());
         } else {
-            postInfo = timeLineGraphRepository.getUserPostInfo(postLimitRequest.getSearchUserId(), userId,
+            postInfo = timeLineRepository.getUserPostInfo(postLimitRequest.getSearchUserId(), userId,
                     postLimitRequest.getMaxPostId(), postLimitRequest.getSize());
         }
 
@@ -101,5 +98,34 @@ public class PostInfoService {
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));
         boolean isLiked = postGraphRepository.isLikedByUserId(postId, userId);
         return PostDetail.of(postDoc, isLiked);
+    }
+
+
+    private void updateTimeLine(UserNode user) {
+        List<UserNode> followers = userGraphRepository.findFollowedByUserId(user.getUserId());
+
+        //loop all followers for update timeline
+        for (UserNode follower : followers) {
+            Long timeLineUserId = follower.getUserId();
+
+            Optional<UserNode> prevUser = timeLineRepository.getPrevUserOnLine(timeLineUserId, user.getUserId());
+            Optional<UserNode> nextUser = timeLineRepository.getNextUserOnLine(timeLineUserId, user.getUserId());
+            // connect line where the user disappeared on timeline
+            if (prevUser.isPresent()) {
+                timeLineRepository.deleteTimeLineRelation(timeLineUserId, user.getUserId(), RelationDirection.INCOMMING);
+                if (nextUser.isPresent()) {
+                    timeLineRepository.deleteTimeLineRelation(timeLineUserId, user.getUserId(), RelationDirection.OUTGOING);
+                    timeLineRepository.addTimeLineRelation(timeLineUserId, prevUser.get().getUserId(), nextUser.get().getUserId());
+                }
+            }
+
+            // insert user at the beginning of timeline
+            Optional<UserNode> firstUser = timeLineRepository.getNextUserOnLine(timeLineUserId, timeLineUserId);
+            if (firstUser.isPresent()) {
+                timeLineRepository.deleteTimeLineRelation(timeLineUserId, timeLineUserId, RelationDirection.OUTGOING);
+                timeLineRepository.addTimeLineRelation(timeLineUserId, user.getUserId(), firstUser.get().getUserId());
+            }
+            timeLineRepository.addTimeLineRelation(timeLineUserId, timeLineUserId, user.getUserId());
+        }
     }
 }

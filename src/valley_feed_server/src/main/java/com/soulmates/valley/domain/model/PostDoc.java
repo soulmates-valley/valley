@@ -102,21 +102,6 @@ public class PostDoc {
         return h.replaceAll("\"", "");
     }
 
-    public void updatePost(PostUpdateRequest postUpdateRequest) {
-        this.content = postUpdateRequest.getContent();
-        this.link = postUpdateRequest.getLink();
-        this.code = postUpdateRequest.getCode();
-        this.codeType = postUpdateRequest.getCodeType();
-
-        if (postUpdateRequest.getLink() != null && !postUpdateRequest.getLink().isBlank()) {
-            this.postType = PostType.LINK.getValue();
-        } else if (postUpdateRequest.getCode() != null && !postUpdateRequest.getCode().isBlank()) {
-            this.postType = PostType.CODE.getValue();
-        } else {
-            this.postType = PostType.TEXT.getValue();
-        }
-    }
-
     public boolean isExistHashTag(){
         return !this.hashTag.isEmpty();
     }
