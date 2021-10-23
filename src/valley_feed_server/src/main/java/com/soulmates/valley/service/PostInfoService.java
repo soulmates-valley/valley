@@ -44,6 +44,7 @@ public class PostInfoService {
      * @param userId 게시글 등록 user 식별자
      * @param postAddRequest 게시글 등록 정보
      * @return 게시글 정보
+     * @throws CustomException user 존재하지 않으면 exception 발생
      */
     @Transactional
     public PostDoc addPost(Long userId, PostAddRequest postAddRequest) {
@@ -92,6 +93,7 @@ public class PostInfoService {
      * @param postId post 식별자
      * @param userId 조회 요청한 user 식별자 (좋아요 여부 확인 용도)
      * @return 게시글 상세정보
+     * @throws CustomException 게시글이 존재하지 않으면 exception 발생
      */
     public PostDetail getPostDetail(Long postId, Long userId) {
         PostDoc postDoc = postDocRepository.findById(postId)

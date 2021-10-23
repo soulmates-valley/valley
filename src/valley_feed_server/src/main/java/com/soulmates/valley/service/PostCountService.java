@@ -18,6 +18,7 @@ public class PostCountService {
      *
      * @param postId 게시글 식별자
      * @return 게시글 정보
+     * @throws CustomException 게시글이 존재하지 않으면 exception 발생
      */
     public PostDoc increaseLikeCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
@@ -32,6 +33,8 @@ public class PostCountService {
      *
      * @param postId 게시글 식별자
      * @return 게시글 정보
+     * @throws CustomException 게시글이 존재하지 않으면 exception 발생
+     * @throws CustomException 좋아요 0 이하로 요청할때 exception 발생
      */
 
     public PostDoc decreaseLikeCnt(Long postId) {
@@ -50,6 +53,7 @@ public class PostCountService {
      *
      * @param postId 게시글 식별자
      * @return 게시글 정보
+     * @throws CustomException 게시글이 존재하지 않으면 exception 발생
      */
     public PostDoc increaseCommentCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
@@ -64,6 +68,7 @@ public class PostCountService {
      *
      * @param postId 게시글 식별자
      * @return 게시글 정보
+     * @throws CustomException 게시글이 존재하지 않으면 exception 발생
      */
     public PostDoc decreaseCommentCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
