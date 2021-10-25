@@ -1,11 +1,13 @@
 package com.soulmates.valley.domain.repository;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.domain.constants.RelationDirection;
 import com.soulmates.valley.domain.constants.NodeType;
 import com.soulmates.valley.domain.constants.RelationType;
 import com.soulmates.valley.domain.model.UserNode;
+import com.soulmates.valley.dto.posting.PostInfo;
 import lombok.RequiredArgsConstructor;
 import org.neo4j.cypherdsl.core.*;
 import org.neo4j.cypherdsl.core.renderer.Renderer;
@@ -15,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Repository
@@ -23,6 +26,7 @@ public class TimeLineGraphRepository {
     private final Neo4jClient neo4jClient;
     private final Neo4jTemplate neo4jTemplate;
     private final Renderer cypherRenderer;
+    private final ObjectMapper objectMapper;
 
     public Optional<UserNode> getNextUserOnLine(Long timeLineUserId, Long userId) {
         Node user = Cypher.node(NodeType.User.name())
@@ -78,7 +82,7 @@ public class TimeLineGraphRepository {
         neo4jClient.query(query).fetch().one();
     }
 
-    public Collection<Map<String, Object>> getFeedPostInfo(Long userId, int length, LocalDateTime fromDate) {
+    public List<PostInfo> getFeedPostInfo(Long userId, int length, LocalDateTime fromDate) {
         String query = "MATCH p=(me:User{ userId: " + userId + "})-[:TIMELINE_" + userId + "*1.." + length + "]->(friend:User) WITH me, friend " +
                 "MATCH (friend)-[:POSTED_LAST|PREVIOUS*]->(post) " +
                 "WHERE post.createDt > localdatetime('" + fromDate + "') WITH post, me, friend " +
@@ -87,24 +91,35 @@ public class TimeLineGraphRepository {
                 "CASE WHEN like IS NULL THEN false ELSE true END AS isUserLiked " +
                 "ORDER BY post.createDt DESC LIMIT " + length;
 
-        return neo4jClient.query(query).fetch().all();
+        Collection<Map<String, Object>> result = neo4jClient.query(query).fetch().all();
+        return convertPostList(result);
     }
 
-    public Collection<Map<String, Object>> getUserPostInfo(Long searchUserId, Long userId, Long postId, int size){
+    public List<PostInfo> getUserPostInfo(Long searchUserId, Long userId, Long postId, int size){
         String query = "MATCH (searchUser:User{userId:"+searchUserId+"})-[:POSTED_LAST|PREVIOUS*]->(firstPost:Post) " +
                 "WHERE firstPost.postId = "+postId+" WITH firstPost, searchUser " +
                 "MATCH (firstPost)-[:POSTED_LAST|PREVIOUS*1.."+size+"]->(post:Post) " +
                 "OPTIONAL MATCH (user:User{userId:"+userId+"})-[like:LIKE]->(post) " +
                 "RETURN post.postId as postId, post.createDt as createDt, searchUser.userId as userId, CASE WHEN like IS NOT NULL THEN true ELSE false END AS isUserLiked ";
 
-        return neo4jClient.query(query).fetch().all();
+        Collection<Map<String, Object>> result = neo4jClient.query(query).fetch().all();
+        return convertPostList(result);
     }
 
-    public Collection<Map<String, Object>> getUserPostInfoFirst(Long searchUserId, Long userId, int size){
+    public List<PostInfo> getUserPostInfoFirst(Long searchUserId, Long userId, int size){
         String query = "MATCH (searchUser:User{userId:"+searchUserId+"})-[:POSTED_LAST|PREVIOUS*1.."+size+"]->(post:Post) " +
                 "OPTIONAL MATCH (user:User{userId:"+userId+"})-[like:LIKE]->(post) " +
                 "RETURN post.postId as postId, post.createDt as createDt, searchUser.userId as userId, CASE WHEN like IS NOT NULL THEN true ELSE false END AS isUserLiked ";
 
-        return neo4jClient.query(query).fetch().all();
+        Collection<Map<String, Object>> result = neo4jClient.query(query).fetch().all();
+        return convertPostList(result);
+    }
+
+    private List<PostInfo> convertPostList(Collection<Map<String, Object>> postList) {
+        return postList.stream().map(m -> {
+            PostInfo postInfo = objectMapper.convertValue(m, PostInfo.class);
+            postInfo.setUserLiked((boolean) m.get("isUserLiked"));
+            return postInfo;
+        }).collect(Collectors.toList());
     }
 }

@@ -1,20 +1,27 @@
-package com.soulmates.valley.common.util;
+package com.soulmates.valley.common.util.post;
 
 import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.domain.model.PostDoc;
+import com.soulmates.valley.domain.repository.PostDocRepository;
 import com.soulmates.valley.dto.posting.PostDetail;
 import com.soulmates.valley.dto.posting.PostInfo;
-import org.springframework.stereotype.Service;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
-@Service
-public class PostCombiner {
+@RequiredArgsConstructor
+@Component
+public class PostConverter {
 
-    private PostCombiner(){}
+    private final PostDocRepository postDocRepository;
 
-    public static List<PostDetail> combinePostList(List<PostDoc> postDocList, List<PostInfo> postInfoList) {
+    public List<PostDetail> convertToPost(List<PostInfo> postInfoList) {
+        List<Long> postIdList = postInfoList.stream().map(PostInfo::getPostId).collect(Collectors.toList());
+        List<PostDoc> postDocList = postDocRepository.findAllByIdIn(postIdList);
+
         if (postDocList.size() != postInfoList.size())
             throw new CustomException(ResponseCode.ETC);
 
@@ -39,7 +46,7 @@ public class PostCombiner {
         return postDetailList;
     }
 
-    public static List<PostDoc> sortPostDocByDateDesc(List<PostDoc> postDocList) {
+    private List<PostDoc> sortPostDocByDateDesc(List<PostDoc> postDocList) {
         postDocList.sort((o1, o2) -> {
             if (o1.getCreateDt().isAfter(o2.getCreateDt()))
                 return -1;
@@ -51,7 +58,7 @@ public class PostCombiner {
         return postDocList;
     }
 
-    public static List<PostInfo> sortPostNodeByDateDesc(List<PostInfo> postNodeList) {
+    private List<PostInfo> sortPostNodeByDateDesc(List<PostInfo> postNodeList) {
         postNodeList.sort((o1, o2) -> {
             if (o1.getCreateDt().isAfter(o2.getCreateDt()))
                 return -1;

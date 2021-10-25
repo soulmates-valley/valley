@@ -9,9 +9,9 @@ import javax.crypto.spec.SecretKeySpec;
 
 public class JWTParser {
 
-    private static final String ENCODED_KEY = "a@u#t%hse#rver0102test!@#%";
-
     private JWTParser(){}
+
+    private static final String ENCODED_KEY = "a@u#t%hse#rver0102test!@#%";
 
     /**
      * 토큰 parsing 된 user 정보 조회

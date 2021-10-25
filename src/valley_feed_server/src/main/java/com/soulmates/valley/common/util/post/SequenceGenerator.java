@@ -1,4 +1,4 @@
-package com.soulmates.valley.common.util;
+package com.soulmates.valley.common.util.post;
 
 import com.soulmates.valley.domain.model.DatabaseSequence;
 import lombok.RequiredArgsConstructor;

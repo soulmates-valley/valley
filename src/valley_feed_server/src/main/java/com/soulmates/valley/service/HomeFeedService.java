@@ -1,38 +1,32 @@
 package com.soulmates.valley.service;
 
-import com.soulmates.valley.common.util.PostMapper;
-import com.soulmates.valley.domain.model.PostDoc;
-import com.soulmates.valley.domain.repository.PostDocRepository;
 import com.soulmates.valley.domain.repository.TimeLineGraphRepository;
 import com.soulmates.valley.dto.posting.PostDetail;
 import com.soulmates.valley.dto.posting.PostInfo;
-import com.soulmates.valley.common.util.PostCombiner;
+import com.soulmates.valley.common.util.post.PostConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
 public class HomeFeedService {
 
     private final TimeLineGraphRepository timeLineGraphRepository;
-    private final PostDocRepository postDocRepository;
     private final RedisTemplate<String, PostInfo> redisTemplate;
-    private final PostMapper postMapper;
+    private final PostConverter postConverter;
 
     private static final int FEED_LENGTH = 150;
     private static final int FEED_FROM_DATE = 5;
 
     /**
      * 홈피드 조회
+     * (게시글 중복 조회 문제 발생에 대한 차선책 코드. 향후 개선 필요.)
      *
      * @param userId 조회하고자 하는 user 식별자
      * @param page 조회 page
@@ -44,7 +38,7 @@ public class HomeFeedService {
 
         // post info caching when first request or reload
         if (page == 0) {
-            List<PostInfo> postInitList = getPostInfoAll(userId);
+            List<PostInfo> postInitList = getFeedPostInfo(userId);
             if (postInitList == null || postInitList.isEmpty())
                 return Collections.emptyList();
             redisTemplate.delete(FEED_KEY);
@@ -55,14 +49,11 @@ public class HomeFeedService {
         if (postInfoList == null || postInfoList.isEmpty())
             return Collections.emptyList();
 
-        List<Long> postIdList = postInfoList.stream().map(PostInfo::getPostId).collect(Collectors.toList());
-        List<PostDoc> postDocList = postDocRepository.findAllByIdIn(postIdList);
-        return PostCombiner.combinePostList(postDocList, postInfoList);
+        return postConverter.convertToPost(postInfoList);
     }
 
-    private List<PostInfo> getPostInfoAll(Long userId) {
+    private List<PostInfo> getFeedPostInfo(Long userId) {
         LocalDateTime fromTime = LocalDateTime.now(ZoneId.of("Asia/Seoul")).minusDays(FEED_FROM_DATE);
-        Collection<Map<String, Object>> postIdList = timeLineGraphRepository.getFeedPostInfo(userId, FEED_LENGTH, fromTime);
-        return postMapper.convertPostList(postIdList);
+        return timeLineGraphRepository.getFeedPostInfo(userId, FEED_LENGTH, fromTime);
     }
 }

@@ -8,7 +8,6 @@ import com.soulmates.valley.dto.posting.PostAddRequest;
 import com.soulmates.valley.dto.posting.PostDetail;
 import com.soulmates.valley.dto.posting.PostInfo;
 import com.soulmates.valley.dto.posting.PostLimitRequest;
-import com.soulmates.valley.common.util.PostMapper;
 import com.soulmates.valley.domain.model.PostDoc;
 import com.soulmates.valley.domain.model.UserNode;
 import com.soulmates.valley.common.util.S3Uploader;
@@ -16,13 +15,12 @@ import com.soulmates.valley.domain.repository.PostDocRepository;
 import com.soulmates.valley.domain.repository.TimeLineGraphRepository;
 import com.soulmates.valley.domain.repository.UserGraphRepository;
 import com.soulmates.valley.domain.repository.PostGraphRepository;
-import com.soulmates.valley.common.util.PostCombiner;
+import com.soulmates.valley.common.util.post.PostConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Service
@@ -31,12 +29,12 @@ public class PostInfoService {
     private final PostGraphRepository postGraphRepository;
     private final PostDocRepository postDocRepository;
     private final UserGraphRepository userGraphRepository;
-    private final PostMapper postMapper;
     private final TimeLineGraphRepository timeLineRepository;
     private final S3Uploader s3Uploader;
     private final EventSender eventSender;
+    private final PostConverter postConverter;
 
-    private final static long NO_MAX_POST_ID = -1L;
+    private static final long NO_MAX_POST_ID = -1L;
 
     /**
      * 게시글 등록 기능
@@ -66,25 +64,23 @@ public class PostInfoService {
     }
 
     /**
-     * 특정 user가 작성한 게시글 조회 (= 프로필 조회 용도)
+     * 특정 user가 작성한 게시글 조회
+     * cursor-based 페이징 방식 적용
      *
      * @param userId user 식별자
      * @param postLimitRequest 게시글 조회 정보
      * @return user가 작성한 게시글 List
      */
     public List<PostDetail> getUserPostList(Long userId, PostLimitRequest postLimitRequest) {
-        Collection<Map<String, Object>> postInfo;
+        List<PostInfo> postInfoList;
         if (postLimitRequest.getMaxPostId() == null || postLimitRequest.getMaxPostId() == NO_MAX_POST_ID) {
-            postInfo = timeLineRepository.getUserPostInfoFirst(postLimitRequest.getSearchUserId(), userId, postLimitRequest.getSize());
+            postInfoList = timeLineRepository.getUserPostInfoFirst(postLimitRequest.getSearchUserId(), userId, postLimitRequest.getSize());
         } else {
-            postInfo = timeLineRepository.getUserPostInfo(postLimitRequest.getSearchUserId(), userId,
+            postInfoList = timeLineRepository.getUserPostInfo(postLimitRequest.getSearchUserId(), userId,
                     postLimitRequest.getMaxPostId(), postLimitRequest.getSize());
         }
 
-        List<PostInfo> postInfoList = postMapper.convertPostList(postInfo);
-        List<Long> postIdList = postInfoList.stream().map(PostInfo::getPostId).collect(Collectors.toList());
-        List<PostDoc> postDocList = postDocRepository.findAllByIdIn(postIdList);
-        return PostCombiner.combinePostList(postDocList, postInfoList);
+        return postConverter.convertToPost(postInfoList);
     }
 
     /**
