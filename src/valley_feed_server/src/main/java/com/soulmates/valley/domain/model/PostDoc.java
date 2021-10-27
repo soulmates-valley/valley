@@ -3,7 +3,6 @@ package com.soulmates.valley.domain.model;
 
 import com.soulmates.valley.domain.constants.PostType;
 import com.soulmates.valley.dto.posting.PostAddRequest;
-import com.soulmates.valley.dto.posting.PostUpdateRequest;
 import lombok.*;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.Id;
@@ -66,7 +65,7 @@ public class PostDoc {
     @Transient
     public static final String SEQUENCE_NAME = "users_sequence";
 
-    public static PostDoc of(PostAddRequest postUploadRequest, List<String> images, UserNode userNode){
+    public static PostDoc of(PostAddRequest postUploadRequest, List<String> images, User user){
         PostDoc post = PostDoc.builder()
                 .content(postUploadRequest.getContent())
                 .code(postUploadRequest.getCode())
@@ -76,11 +75,11 @@ public class PostDoc {
                 .linkTitle(postUploadRequest.getLinkTitle())
                 .linkImage(postUploadRequest.getLinkImage())
                 .linkSiteName(postUploadRequest.getLinkSiteName())
-                .userId(userNode.getUserId())
-                .userImage(userNode.getProfileImg())
+                .userId(user.getUserId())
+                .userImage(user.getProfileImg())
                 .hashTag(postUploadRequest.getHashTag().stream().map(PostDoc::apply).collect(Collectors.toList()))
                 .images(images)
-                .nickname(userNode.getNickname())
+                .nickname(user.getNickname())
                 .createDt(LocalDateTime.now())
                 .likeCnt(0)
                 .commentCnt(0).build();

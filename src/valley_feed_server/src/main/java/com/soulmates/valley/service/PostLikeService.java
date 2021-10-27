@@ -3,9 +3,9 @@ package com.soulmates.valley.service;
 import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.event.EventSender;
 import com.soulmates.valley.common.exception.CustomException;
-import com.soulmates.valley.domain.model.UserNode;
-import com.soulmates.valley.domain.repository.PostGraphRepository;
-import com.soulmates.valley.domain.repository.UserGraphRepository;
+import com.soulmates.valley.domain.model.User;
+import com.soulmates.valley.domain.repository.PostRepository;
+import com.soulmates.valley.domain.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -14,9 +14,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 public class PostLikeService {
 
-    private final PostGraphRepository postGraphRepository;
+    private final PostRepository postRepository;
     private final PostCountService postCountService;
-    private final UserGraphRepository userGraphRepository;
+    private final UserRepository userRepository;
     private final EventSender eventSender;
 
     /**
@@ -29,11 +29,11 @@ public class PostLikeService {
     @Transactional
     public void addLikeToPost(Long postId, Long userId) {
         postCountService.increaseLikeCnt(postId);
-        UserNode postOwner = userGraphRepository.findOwnerByPostId(postId)
+        User postOwner = userRepository.findOwnerByPostId(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_OWNER_NOT_FOUND));
 
         eventSender.sendLikeCreateEvent(userId, postOwner.getUserId(), postId);
-        postGraphRepository.addLikeToPost(postId, userId);
+        postRepository.addLikeToPost(postId, userId);
     }
 
     /**
@@ -45,6 +45,6 @@ public class PostLikeService {
     @Transactional
     public void deleteLikeToPost(Long postId, Long userId) {
         postCountService.decreaseLikeCnt(postId);
-        postGraphRepository.deleteLikeToPost(postId, userId);
+        postRepository.deleteLikeToPost(postId, userId);
     }
 }

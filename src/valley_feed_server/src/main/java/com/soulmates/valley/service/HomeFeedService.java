@@ -1,6 +1,6 @@
 package com.soulmates.valley.service;
 
-import com.soulmates.valley.domain.repository.TimeLineGraphRepository;
+import com.soulmates.valley.domain.repository.TimeLineRepository;
 import com.soulmates.valley.dto.posting.PostDetail;
 import com.soulmates.valley.dto.posting.PostInfo;
 import com.soulmates.valley.common.util.post.PostConverter;
@@ -17,7 +17,7 @@ import java.util.List;
 @Service
 public class HomeFeedService {
 
-    private final TimeLineGraphRepository timeLineGraphRepository;
+    private final TimeLineRepository timeLineRepository;
     private final RedisTemplate<String, PostInfo> redisTemplate;
     private final PostConverter postConverter;
 
@@ -54,6 +54,6 @@ public class HomeFeedService {
 
     private List<PostInfo> getFeedPostInfo(Long userId) {
         LocalDateTime fromTime = LocalDateTime.now(ZoneId.of("Asia/Seoul")).minusDays(FEED_FROM_DATE);
-        return timeLineGraphRepository.getFeedPostInfo(userId, FEED_LENGTH, fromTime);
+        return timeLineRepository.getFeedPostInfo(userId, FEED_LENGTH, fromTime);
     }
 }

@@ -16,27 +16,27 @@ import java.util.stream.Collectors;
 @Setter
 @Builder
 @Node("HashTag")
-public class HashTagNode {
+public class HashTag {
 
     @Id
     private String content;
 
     @Relationship(type = "TAG", direction = Relationship.Direction.INCOMING)
-    private Set<PostNode> posts = new HashSet<>();
+    private Set<Post> posts = new HashSet<>();
 
-    public HashTagNode(String content) {
+    public HashTag(String content) {
         this.content = content;
     }
 
-    public static List<HashTagNode> of(List<String> content, PostNode postNode) {
+    public static List<HashTag> of(List<String> content, Post post) {
         return content.stream().map(c -> {
-            HashTagNode node = new HashTagNode(c);
-            node.addRelationWithPost(postNode);
+            HashTag node = new HashTag(c);
+            node.addRelationWithPost(post);
             return node;
         }).collect(Collectors.toList());
     }
 
-    public void addRelationWithPost(PostNode postNode) {
-        this.posts.add(postNode);
+    public void addRelationWithPost(Post post) {
+        this.posts.add(post);
     }
 }

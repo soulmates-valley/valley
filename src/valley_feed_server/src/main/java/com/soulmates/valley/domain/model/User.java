@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @Builder
 @EqualsAndHashCode(of = "userId")
 @Node("User")
-public class UserNode {
+public class User {
 
     @Id
     private Long userId;

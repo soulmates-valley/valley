@@ -1,6 +1,6 @@
 package com.soulmates.valley.domain.repository;
 
-import com.soulmates.valley.domain.model.CommentNode;
+import com.soulmates.valley.domain.model.Comment;
 import com.soulmates.valley.dto.comment.CommentInfo;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
@@ -8,7 +8,7 @@ import org.springframework.data.neo4j.repository.query.Query;
 import java.util.List;
 import java.util.Optional;
 
-public interface CommentGraphRepository extends Neo4jRepository<CommentNode, Long> {
+public interface CommentRepository extends Neo4jRepository<Comment, Long> {
 
     @Query("MATCH (:Post{postId:$postId})<-[:COMMENTED]-(c:Comment)<-[:WRITE]-(u:User)" +
             "RETURN c, u.userId as userId, u.nickname as nickname, u.profileImg as profileImg " +

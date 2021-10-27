@@ -6,7 +6,7 @@ import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.domain.constants.RelationDirection;
 import com.soulmates.valley.domain.constants.NodeType;
 import com.soulmates.valley.domain.constants.RelationType;
-import com.soulmates.valley.domain.model.UserNode;
+import com.soulmates.valley.domain.model.User;
 import com.soulmates.valley.dto.posting.PostInfo;
 import lombok.RequiredArgsConstructor;
 import org.neo4j.cypherdsl.core.*;
@@ -21,14 +21,14 @@ import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 @Repository
-public class TimeLineGraphRepository {
+public class TimeLineRepository {
 
     private final Neo4jClient neo4jClient;
     private final Neo4jTemplate neo4jTemplate;
     private final Renderer cypherRenderer;
     private final ObjectMapper objectMapper;
 
-    public Optional<UserNode> getNextUserOnLine(Long timeLineUserId, Long userId) {
+    public Optional<User> getNextUserOnLine(Long timeLineUserId, Long userId) {
         Node user = Cypher.node(NodeType.User.name())
                 .named("user")
                 .withProperties("userId", Cypher.literalOf(userId));
@@ -38,10 +38,10 @@ public class TimeLineGraphRepository {
                 .match(user.relationshipTo(nextUser, RelationType.TIMELINE_.name() + timeLineUserId))
                 .returning(nextUser).build();
 
-        return neo4jTemplate.findOne(statement, new HashMap<>(), UserNode.class);
+        return neo4jTemplate.findOne(statement, new HashMap<>(), User.class);
     }
 
-    public Optional<UserNode> getPrevUserOnLine(Long timeLineUserId, Long userId) {
+    public Optional<User> getPrevUserOnLine(Long timeLineUserId, Long userId) {
         Node user = Cypher.node(NodeType.User.name())
                 .named("user")
                 .withProperties("userId", Cypher.literalOf(userId));
@@ -51,7 +51,7 @@ public class TimeLineGraphRepository {
                 .match(user.relationshipFrom(prevUser, RelationType.TIMELINE_.name() + timeLineUserId))
                 .returning(prevUser).build();
 
-        return neo4jTemplate.findOne(statement, new HashMap<>(), UserNode.class);
+        return neo4jTemplate.findOne(statement, new HashMap<>(), User.class);
     }
 
     public void addTimeLineRelation(Long timeLineUserId, Long fromUserId, Long toUserId) {

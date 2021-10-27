@@ -9,12 +9,12 @@ import com.soulmates.valley.dto.posting.PostDetail;
 import com.soulmates.valley.dto.posting.PostInfo;
 import com.soulmates.valley.dto.posting.PostLimitRequest;
 import com.soulmates.valley.domain.model.PostDoc;
-import com.soulmates.valley.domain.model.UserNode;
+import com.soulmates.valley.domain.model.User;
 import com.soulmates.valley.common.util.S3Uploader;
 import com.soulmates.valley.domain.repository.PostDocRepository;
-import com.soulmates.valley.domain.repository.TimeLineGraphRepository;
-import com.soulmates.valley.domain.repository.UserGraphRepository;
-import com.soulmates.valley.domain.repository.PostGraphRepository;
+import com.soulmates.valley.domain.repository.TimeLineRepository;
+import com.soulmates.valley.domain.repository.UserRepository;
+import com.soulmates.valley.domain.repository.PostRepository;
 import com.soulmates.valley.common.util.post.PostConverter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -26,10 +26,10 @@ import java.util.*;
 @Service
 public class PostInfoService {
 
-    private final PostGraphRepository postGraphRepository;
+    private final PostRepository postRepository;
     private final PostDocRepository postDocRepository;
-    private final UserGraphRepository userGraphRepository;
-    private final TimeLineGraphRepository timeLineRepository;
+    private final UserRepository userRepository;
+    private final TimeLineRepository timeLineRepository;
     private final S3Uploader s3Uploader;
     private final EventSender eventSender;
     private final PostConverter postConverter;
@@ -46,7 +46,7 @@ public class PostInfoService {
      */
     @Transactional
     public PostDoc addPost(Long userId, PostAddRequest postAddRequest) {
-        UserNode user = userGraphRepository.findById(userId)
+        User user = userRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ResponseCode.USER_NOT_FOUND));
 
         List<String> imageList = new LinkedList<>();
@@ -55,7 +55,7 @@ public class PostInfoService {
         }
 
         PostDoc post = postDocRepository.save(PostDoc.of(postAddRequest, imageList, user));
-        postGraphRepository.addNewPost(userId, post.getId());
+        postRepository.addNewPost(userId, post.getId());
 
         eventSender.sendPostAndHashTagCreateEvent(post);
         updateTimeLine(user);
@@ -94,20 +94,20 @@ public class PostInfoService {
     public PostDetail getPostDetail(Long postId, Long userId) {
         PostDoc postDoc = postDocRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));
-        boolean isLiked = postGraphRepository.isLikedByUserId(postId, userId);
+        boolean isLiked = postRepository.isLikedByUserId(postId, userId);
         return PostDetail.of(postDoc, isLiked);
     }
 
 
-    private void updateTimeLine(UserNode user) {
-        List<UserNode> followers = userGraphRepository.findFollowedByUserId(user.getUserId());
+    private void updateTimeLine(User user) {
+        List<User> followers = userRepository.findFollowedByUserId(user.getUserId());
 
         //loop all followers for update timeline
-        for (UserNode follower : followers) {
+        for (User follower : followers) {
             Long timeLineUserId = follower.getUserId();
 
-            Optional<UserNode> prevUser = timeLineRepository.getPrevUserOnLine(timeLineUserId, user.getUserId());
-            Optional<UserNode> nextUser = timeLineRepository.getNextUserOnLine(timeLineUserId, user.getUserId());
+            Optional<User> prevUser = timeLineRepository.getPrevUserOnLine(timeLineUserId, user.getUserId());
+            Optional<User> nextUser = timeLineRepository.getNextUserOnLine(timeLineUserId, user.getUserId());
             // connect line where the user disappeared on timeline
             if (prevUser.isPresent()) {
                 timeLineRepository.deleteTimeLineRelation(timeLineUserId, user.getUserId(), RelationDirection.INCOMMING);
@@ -118,7 +118,7 @@ public class PostInfoService {
             }
 
             // insert user at the beginning of timeline
-            Optional<UserNode> firstUser = timeLineRepository.getNextUserOnLine(timeLineUserId, timeLineUserId);
+            Optional<User> firstUser = timeLineRepository.getNextUserOnLine(timeLineUserId, timeLineUserId);
             if (firstUser.isPresent()) {
                 timeLineRepository.deleteTimeLineRelation(timeLineUserId, timeLineUserId, RelationDirection.OUTGOING);
                 timeLineRepository.addTimeLineRelation(timeLineUserId, user.getUserId(), firstUser.get().getUserId());

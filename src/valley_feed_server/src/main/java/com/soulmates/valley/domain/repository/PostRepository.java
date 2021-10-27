@@ -1,16 +1,16 @@
 package com.soulmates.valley.domain.repository;
 
-import com.soulmates.valley.domain.model.PostNode;
+import com.soulmates.valley.domain.model.Post;
 import org.springframework.data.neo4j.repository.Neo4jRepository;
 import org.springframework.data.neo4j.repository.query.Query;
 
 import java.util.Optional;
 
-public interface PostGraphRepository extends Neo4jRepository<PostNode, Long> {
+public interface PostRepository extends Neo4jRepository<Post, Long> {
 
     @Query("MATCH (u:User{userId:$userId})-[:POSTED_LAST]->(p:Post) " +
             "RETURN p ")
-    Optional<PostNode> getLastPostByUserId(Long userId);
+    Optional<Post> getLastPostByUserId(Long userId);
 
     @Query("MATCH(user:User{userId:$userId}) " +
             "OPTIONAL MATCH (user)-[last:POSTED_LAST]->(oldPost:Post) " +
@@ -18,7 +18,7 @@ public interface PostGraphRepository extends Neo4jRepository<PostNode, Long> {
             "CREATE (user)-[:POSTED_LAST]->(post:Post{postId:$postId}) WITH user, post, oldPost " +
             "FOREACH(iter IN CASE WHEN oldPost IS NOT NULL THEN [1] ELSE [] END | MERGE (post)-[:PREVIOUS]->(oldPost)) " +
             "SET user.lastPostDt = localdatetime({ timezone: 'Asia/Seoul' }), post.createDt = localdatetime({ timezone: 'Asia/Seoul' }) RETURN post")
-    PostNode addNewPost(Long userId, Long postId);
+    Post addNewPost(Long userId, Long postId);
 
     @Query("MATCH (u:User{userId: $userId})-[r:POSTED_LAST]->(p:Post{postId:$postId}) " +
             "DELETE r ")

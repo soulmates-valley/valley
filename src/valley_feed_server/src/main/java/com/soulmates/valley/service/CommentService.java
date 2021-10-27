@@ -4,7 +4,7 @@ import com.soulmates.valley.common.constants.ResponseCode;
 import com.soulmates.valley.common.event.EventSender;
 import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.domain.model.PostDoc;
-import com.soulmates.valley.domain.repository.CommentGraphRepository;
+import com.soulmates.valley.domain.repository.CommentRepository;
 import com.soulmates.valley.dto.comment.CommentAddRequest;
 import com.soulmates.valley.dto.comment.CommentInfo;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +18,7 @@ import java.util.List;
 public class CommentService {
 
     private final PostCountService postCountService;
-    private final CommentGraphRepository commentRepository;
+    private final CommentRepository commentRepository;
     private final EventSender eventSender;
 
     /**
