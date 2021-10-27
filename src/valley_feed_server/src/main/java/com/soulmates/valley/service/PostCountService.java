@@ -6,6 +6,7 @@ import com.soulmates.valley.common.exception.CustomException;
 import com.soulmates.valley.domain.repository.PostDocRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @RequiredArgsConstructor
 @Service
@@ -20,6 +21,7 @@ public class PostCountService {
      * @return 게시글 정보
      * @throws CustomException 게시글이 존재하지 않으면 exception 발생
      */
+    @Transactional
     public PostDoc increaseLikeCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));
@@ -36,6 +38,7 @@ public class PostCountService {
      * @throws CustomException 게시글이 존재하지 않으면 exception 발생
      * @throws CustomException 좋아요 0 이하로 요청할때 exception 발생
      */
+    @Transactional
     public PostDoc decreaseLikeCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));
@@ -54,6 +57,7 @@ public class PostCountService {
      * @return 게시글 정보
      * @throws CustomException 게시글이 존재하지 않으면 exception 발생
      */
+    @Transactional
     public PostDoc increaseCommentCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));
@@ -69,6 +73,7 @@ public class PostCountService {
      * @return 게시글 정보
      * @throws CustomException 게시글이 존재하지 않으면 exception 발생
      */
+    @Transactional
     public PostDoc decreaseCommentCnt(Long postId) {
         PostDoc post = postDocRepository.findById(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_NOT_FOUND));
