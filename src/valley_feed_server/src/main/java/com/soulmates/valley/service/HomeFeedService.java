@@ -1,5 +1,6 @@
 package com.soulmates.valley.service;
 
+import com.soulmates.valley.common.util.RedisKeyGenerator;
 import com.soulmates.valley.domain.repository.TimeLineRepository;
 import com.soulmates.valley.dto.posting.PostDetail;
 import com.soulmates.valley.dto.posting.PostInfo;
@@ -26,7 +27,7 @@ public class HomeFeedService {
 
     /**
      * 홈피드 조회
-     * (게시글 중복 조회 문제 발생에 대한 차선책 코드. 향후 개선 필요.)
+     * (게시글 중복 조회 문제 발생에 대한 차선책(캐싱). 향후 개선 필요.)
      *
      * @param userId 조회하고자 하는 user 식별자
      * @param page 조회 page
@@ -34,9 +35,8 @@ public class HomeFeedService {
      * @return 홈피드 게시글 List
      */
     public List<PostDetail> getFeedPostList(Long userId, long page, long size) {
-        final String FEED_KEY = "feed:" + userId;
+        final String FEED_KEY = RedisKeyGenerator.generateKey("feed", ":", userId);
 
-        // post info caching when first request or reload
         if (page == 0) {
             List<PostInfo> postInitList = getFeedPostInfo(userId);
             if (postInitList == null || postInitList.isEmpty())
