@@ -17,6 +17,9 @@ import java.util.List;
 @RestControllerAdvice
 public class GlobalExceptionHandler {
 
+    /**
+     * 비즈니스 로직 exception 처리
+     */
     @ExceptionHandler(value = {CustomException.class})
     public ResponseEntity<CommonResponse<Object>> handleCustomException(CustomException ex) {
         ResponseCode responseCode = ex.getResponseCode();
@@ -24,6 +27,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.ok(new CommonResponse<>(responseCode));
     }
 
+    /**
+     * 파라미터 유효성관련 exception 처리
+     */
     @ExceptionHandler(value = {MethodArgumentNotValidException.class})
     public ResponseEntity<CommonResponse<Object>> handleMethodArgumentNotValidException(MethodArgumentNotValidException e) {
         List<String> fieldErrorMessage = getFieldErrorMessage(e.getFieldErrors());
@@ -32,6 +38,9 @@ public class GlobalExceptionHandler {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * 알 수 없는 exception 처리
+     */
     @ExceptionHandler(value = {Exception.class})
     public ResponseEntity<Object> handleException(Exception ex) {
         log.error("--- 알 수 없는 오류 감지.  ", ex);
