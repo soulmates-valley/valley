@@ -35,7 +35,7 @@ public class CommentService {
                 .orElseThrow(() -> new CustomException(ResponseCode.COMMENT_NOT_CREATE));
 
         PostDoc post = postCountService.increaseCommentCnt(commentAddRequest.getPostId());
-        eventSender.sendCommentCreateEvent(userId, post.getUserId(), post.getId());
+        eventSender.sendEventCommentCreate(userId, post.getUserId(), post.getId());
 
         return commentInfo;
     }

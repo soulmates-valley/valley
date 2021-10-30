@@ -57,7 +57,7 @@ public class PostInfoService {
         PostDoc post = postDocRepository.save(PostDoc.of(postAddRequest, imageList, user));
         postRepository.addNewPost(userId, post.getId());
 
-        eventSender.sendPostAndHashTagCreateEvent(post);
+        eventSender.sendEventPostAndHashTagCreate(post);
         updateTimeLine(user);
 
         return post;

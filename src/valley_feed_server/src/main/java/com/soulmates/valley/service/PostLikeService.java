@@ -32,7 +32,7 @@ public class PostLikeService {
         User postOwner = userRepository.findOwnerByPostId(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_OWNER_NOT_FOUND));
 
-        eventSender.sendLikeCreateEvent(userId, postOwner.getUserId(), postId);
+        eventSender.sendEventLikeCreate(userId, postOwner.getUserId(), postId);
         postRepository.addLikeToPost(postId, userId);
     }
 

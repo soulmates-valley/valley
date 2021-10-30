@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 public class RecommendFeedService {
 
     private final RecommendFeedRepository recommendFeedRepository;
-    private final PostDocRepository postDocRepository;
     private final RedisTemplate<String, PostInfo> redisTemplate;
     private final ObjectMapper objectMapper;
     private final PostConverter postConverter;
