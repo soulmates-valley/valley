@@ -1,6 +1,7 @@
 package com.soulmates.valley.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.soulmates.valley.common.util.RedisKeyGenerator;
 import com.soulmates.valley.domain.model.PostDoc;
 import com.soulmates.valley.domain.repository.PostDocRepository;
 import com.soulmates.valley.domain.repository.RecommendFeedRepository;
@@ -33,7 +34,7 @@ public class RecommendFeedService {
      * @return 추천피드 게시글 List
      */
     public List<PostDetail> getRecommendFeedByInterest(Long userId) {
-        final String FEED_KEY = "recommend:" + userId;
+        final String FEED_KEY = RedisKeyGenerator.generateKey("recommend", ":", userId);
 
         List<PostInfo> postInfoList = redisTemplate.opsForList().range(FEED_KEY, 0, -1);
 

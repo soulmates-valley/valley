@@ -29,11 +29,12 @@ public class PostLikeService {
     @Transactional
     public void addLikeToPost(Long postId, Long userId) {
         postCountService.increaseLikeCnt(postId);
+
         User postOwner = userRepository.findOwnerByPostId(postId)
                 .orElseThrow(() -> new CustomException(ResponseCode.POST_OWNER_NOT_FOUND));
+        postRepository.addLikeToPost(postId, userId);
 
         eventSender.sendEventLikeCreate(userId, postOwner.getUserId(), postId);
-        postRepository.addLikeToPost(postId, userId);
     }
 
     /**
@@ -45,6 +46,7 @@ public class PostLikeService {
     @Transactional
     public void deleteLikeToPost(Long postId, Long userId) {
         postCountService.decreaseLikeCnt(postId);
+
         postRepository.deleteLikeToPost(postId, userId);
     }
 }
